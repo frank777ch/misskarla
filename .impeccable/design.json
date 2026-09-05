@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-03T09:10:00-05:00",
+  "title": "Design System: Miss Karla",
+  "extensions": {
+    "colorMeta": {
+      "marino": {
+        "role": "primary",
+        "displayName": "Marino pizarra",
+        "canonical": "#1a2350",
+        "tonalRamp": [
+          "oklch(15% 0.06 275)",
+          "oklch(24% 0.08 275)",
+          "oklch(33% 0.09 275)",
+          "oklch(45% 0.1 275)",
+          "oklch(58% 0.1 275)",
+          "oklch(72% 0.08 275)",
+          "oklch(85% 0.05 275)",
+          "oklch(95% 0.02 275)"
+        ]
+      },
+      "marino-oscuro": {
+        "role": "primary",
+        "displayName": "Marino profundo",
+        "canonical": "#131a3a",
+        "tonalRamp": [
+          "oklch(12% 0.05 275)",
+          "oklch(20% 0.07 275)",
+          "oklch(30% 0.08 275)",
+          "oklch(42% 0.09 275)",
+          "oklch(55% 0.09 275)",
+          "oklch(70% 0.07 275)",
+          "oklch(84% 0.04 275)",
+          "oklch(95% 0.02 275)"
+        ]
+      },
+      "hueso": {
+        "role": "neutral",
+        "displayName": "Hueso cuaderno",
+        "canonical": "#f7f5ef",
+        "tonalRamp": [
+          "oklch(18% 0.01 90)",
+          "oklch(30% 0.01 90)",
+          "oklch(45% 0.012 90)",
+          "oklch(60% 0.012 90)",
+          "oklch(75% 0.012 90)",
+          "oklch(86% 0.01 90)",
+          "oklch(93% 0.009 90)",
+          "oklch(97% 0.008 90)"
+        ]
+      },
+      "magenta": {
+        "role": "secondary",
+        "displayName": "Magenta plumón",
+        "canonical": "#e6197a",
+        "tonalRamp": [
+          "oklch(20% 0.1 355)",
+          "oklch(32% 0.15 355)",
+          "oklch(44% 0.2 355)",
+          "oklch(58% 0.22 355)",
+          "oklch(68% 0.2 355)",
+          "oklch(78% 0.15 355)",
+          "oklch(88% 0.08 355)",
+          "oklch(95% 0.03 355)"
+        ]
+      },
+      "rosa": {
+        "role": "secondary",
+        "displayName": "Rosa resaltador",
+        "canonical": "#ff4d8d",
+        "tonalRamp": [
+          "oklch(22% 0.1 355)",
+          "oklch(35% 0.15 355)",
+          "oklch(48% 0.19 355)",
+          "oklch(60% 0.21 355)",
+          "oklch(68% 0.2 355)",
+          "oklch(78% 0.15 355)",
+          "oklch(88% 0.08 355)",
+          "oklch(95% 0.03 355)"
+        ]
+      },
+      "dorado": {
+        "role": "tertiary",
+        "displayName": "Dorado plumón",
+        "canonical": "#ffd23f",
+        "tonalRamp": [
+          "oklch(22% 0.06 95)",
+          "oklch(35% 0.09 95)",
+          "oklch(50% 0.12 95)",
+          "oklch(65% 0.15 95)",
+          "oklch(78% 0.17 95)",
+          "oklch(87% 0.17 95)",
+          "oklch(93% 0.1 95)",
+          "oklch(97% 0.04 95)"
+        ]
+      },
+      "turquesa": {
+        "role": "tertiary",
+        "displayName": "Turquesa tiza",
+        "canonical": "#16b8a6",
+        "tonalRamp": [
+          "oklch(20% 0.05 180)",
+          "oklch(32% 0.08 180)",
+          "oklch(45% 0.11 180)",
+          "oklch(58% 0.13 180)",
+          "oklch(70% 0.13 180)",
+          "oklch(80% 0.1 180)",
+          "oklch(90% 0.06 180)",
+          "oklch(96% 0.02 180)"
+        ]
+      },
+      "whatsapp": {
+        "role": "tertiary",
+        "displayName": "Verde WhatsApp",
+        "canonical": "#25d366",
+        "tonalRamp": [
+          "oklch(20% 0.07 150)",
+          "oklch(33% 0.11 150)",
+          "oklch(46% 0.15 150)",
+          "oklch(60% 0.19 150)",
+          "oklch(76% 0.2 150)",
+          "oklch(84% 0.16 150)",
+          "oklch(91% 0.1 150)",
+          "oklch(96% 0.04 150)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Solo el H1 del hero; la segunda línea (\"desde cero\") va un paso mayor que la primera y lleva el subrayado de plumón." },
+      "headline": { "displayName": "Headline", "purpose": "H2 de cada sección. El cierre \"¿Empezamos?\" sube a clamp(2.75rem, 11vw, 5.5rem)." },
+      "title": { "displayName": "Title", "purpose": "Nombres de curso y de paso; el curso principal usa 1.875–2.25rem." },
+      "body": { "displayName": "Body", "purpose": "Todo texto corrido en Nunito Sans; frases de apoyo a 1.125–1.25rem; medida máxima 65ch." },
+      "label": { "displayName": "Label", "purpose": "Nameplate del hero y etiquetas en mayúsculas con tracking amplio; chips a 11–12px." }
+    },
+    "shadows": [
+      { "name": "tarjeta", "value": "0 14px 34px -16px rgb(26 35 80 / 0.32), 0 2px 6px -2px rgb(26 35 80 / 0.12)", "purpose": "Tarjetas marino sobre hueso." },
+      { "name": "boton", "value": "0 12px 26px -12px rgb(37 211 102 / 0.6), 0 2px 4px -1px rgb(19 26 58 / 0.25)", "purpose": "Botones primarios de WhatsApp." },
+      { "name": "flotante", "value": "0 16px 32px -14px rgb(19 26 58 / 0.55), 0 3px 8px -2px rgb(19 26 58 / 0.3)", "purpose": "Botón flotante de WhatsApp." }
+    ],
+    "motion": [
+      { "name": "ease-salida", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Curva de salida para hovers y transiciones CSS (200ms)." },
+      { "name": "gsap-salida", "value": "expo.out", "purpose": "Entradas del hero (0.6–0.9s) y reveals al scroll (0.8–0.9s, una sola vez)." },
+      { "name": "hero-foto", "value": "scale 1.06 → 1 en 1.8s", "purpose": "La foto del hero asienta mientras el texto entra en cascada." },
+      { "name": "plumon", "value": "stroke-dashoffset 1 → 0 en 0.7s power2.inOut", "purpose": "El subrayado dorado se dibuja bajo \"desde cero\"." },
+      { "name": "pulso", "value": "1.8s infinite, scale 1 → 2.4, opacity 0.85 → 0", "purpose": "Onda del punto \"En vivo\"; se apaga con prefers-reduced-motion." },
+      { "name": "linea-pasos", "value": "scaleY/scaleX 0 → 1 con scrub 0.5", "purpose": "La línea dorada entre pasos se dibuja con el scroll." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botón primario (WhatsApp)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "El único botón verde: abre WhatsApp con mensaje prellenado. Texto marino profundo, nunca blanco.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z\"/></svg><span>Escríbeme al WhatsApp</span></a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12.8px 24px; border-radius: 9999px; background: var(--color-whatsapp, #25d366); color: var(--color-marino-oscuro, #131a3a); font-family: 'Montserrat Variable', Montserrat, system-ui, sans-serif; font-weight: 700; font-size: 16px; line-height: 1.2; white-space: nowrap; text-decoration: none; box-shadow: 0 12px 26px -12px rgb(37 211 102 / 0.6), 0 2px 4px -1px rgb(19 26 58 / 0.25); transition: translate 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover { translate: 0 -2px; background: #45d97d; } .ds-btn-primary:active { translate: 0 0; } .ds-btn-primary:focus-visible { outline: 3px solid var(--color-dorado, #ffd23f); outline-offset: 3px; }"
+    },
+    {
+      "name": "Botón outline oscuro",
+      "kind": "button",
+      "refersTo": "button-outline-dark",
+      "description": "Acción secundaria sobre fondos marino (ej. \"Ver clases grabadas\", \"Ver mi TikTok\").",
+      "html": "<a class=\"ds-btn-outline-dark\" href=\"#\">Ver clases grabadas</a>",
+      "css": ".ds-btn-outline-dark { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12.8px 24px; border-radius: 9999px; border: 2px solid rgb(247 245 239 / 0.45); background: transparent; color: var(--color-hueso, #f7f5ef); font-family: 'Montserrat Variable', Montserrat, system-ui, sans-serif; font-weight: 700; font-size: 16px; line-height: 1.2; white-space: nowrap; text-decoration: none; transition: translate 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s, background-color 0.2s; } .ds-btn-outline-dark:hover { translate: 0 -2px; border-color: var(--color-hueso, #f7f5ef); background: rgb(247 245 239 / 0.1); } .ds-btn-outline-dark:focus-visible { outline: 3px solid var(--color-dorado, #ffd23f); outline-offset: 3px; }"
+    },
+    {
+      "name": "Botón outline claro",
+      "kind": "button",
+      "refersTo": "button-outline-light",
+      "description": "Acción secundaria sobre fondos hueso.",
+      "html": "<a class=\"ds-btn-outline-light\" href=\"#\">Pedir horarios</a>",
+      "css": ".ds-btn-outline-light { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12.8px 24px; border-radius: 9999px; border: 2px solid rgb(26 35 80 / 0.3); background: transparent; color: var(--color-marino, #1a2350); font-family: 'Montserrat Variable', Montserrat, system-ui, sans-serif; font-weight: 700; font-size: 16px; line-height: 1.2; white-space: nowrap; text-decoration: none; transition: translate 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s, background-color 0.2s; } .ds-btn-outline-light:hover { translate: 0 -2px; border-color: var(--color-marino, #1a2350); background: rgb(26 35 80 / 0.06); } .ds-btn-outline-light:focus-visible { outline: 3px solid var(--color-dorado, #ffd23f); outline-offset: 3px; }"
+    },
+    {
+      "name": "Tarjeta oscura",
+      "kind": "card",
+      "refersTo": "card-dark",
+      "description": "Bloque marino sobre hueso con sombra de caída: curso principal, horarios.",
+      "html": "<article class=\"ds-card-dark\"><div class=\"ds-card-dark__head\"><h3>Matemática desde cero</h3><span class=\"ds-tag\">Curso principal</span></div><p class=\"ds-card-dark__para\">Secundaria · nivel básico y pre-intermedio</p><p>Para quienes se perdieron en algún punto y quieren entender de verdad.</p></article>",
+      "css": ".ds-card-dark { border-radius: 24px; background: var(--color-marino, #1a2350); color: var(--color-hueso, #f7f5ef); padding: 28px; box-shadow: 0 14px 34px -16px rgb(26 35 80 / 0.32), 0 2px 6px -2px rgb(26 35 80 / 0.12); font-family: 'Nunito Sans Variable', 'Nunito Sans', system-ui, sans-serif; font-weight: 500; line-height: 1.55; } .ds-card-dark__head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; } .ds-card-dark h3 { margin: 0; font-family: 'Montserrat Variable', Montserrat, system-ui, sans-serif; font-weight: 800; font-size: 30px; letter-spacing: -0.02em; line-height: 1.1; } .ds-tag { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 9999px; background: rgb(255 77 141 / 0.15); color: var(--color-rosa, #ff4d8d); font-family: 'Montserrat Variable', Montserrat, system-ui, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.025em; text-transform: uppercase; } .ds-card-dark__para { margin: 8px 0 0; font-family: 'Montserrat Variable', Montserrat, system-ui, sans-serif; font-weight: 700; font-size: 14px; color: var(--color-dorado, #ffd23f); } .ds-card-dark p:last-child { margin: 16px 0 0; color: rgb(247 245 239 / 0.8); }"
+    },
+    {
+      "name": "Tarjeta clara",
+      "kind": "card",
+      "refersTo": "card-light",
+      "description": "Panel teñido de marino al 5% con anillo al 10% sobre hueso: cursos compactos, nota para padres.",
+      "html": "<article class=\"ds-card-light\"><span class=\"ds-tile\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 5.5A1.5 1.5 0 0 1 5.5 4H10a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5H4z\"/><path d=\"M20 5.5A1.5 1.5 0 0 0 18.5 4H14a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5H20z\"/></g></svg></span><h3>Refuerzo escolar</h3><p class=\"ds-card-light__para\">5.º y 6.º de primaria · 1.º a 4.º de secundaria</p><p>Aritmética, Álgebra, Geometría, Trigonometría y Razonamiento Matemático.</p><a class=\"ds-link\" href=\"#\">Consultar por WhatsApp <svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"M13 6l6 6-6 6\"/></g></svg></a></article>",
+      "css": ".ds-card-light { border-radius: 24px; background: rgb(26 35 80 / 0.05); box-shadow: inset 0 0 0 1px rgb(26 35 80 / 0.1); color: var(--color-marino, #1a2350); padding: 24px; font-family: 'Nunito Sans Variable', 'Nunito Sans', system-ui, sans-serif; font-weight: 500; line-height: 1.55; } .ds-tile { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 16px; background: var(--color-turquesa, #16b8a6); color: var(--color-marino-oscuro, #131a3a); } .ds-card-light h3 { margin: 20px 0 0; font-family: 'Montserrat Variable', Montserrat, system-ui, sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.01em; } .ds-card-light__para { margin: 4px 0 0; font-family: 'Montserrat Variable', Montserrat, system-ui, sans-serif; font-weight: 700; font-size: 14px; color: rgb(26 35 80 / 0.7); } .ds-card-light p:not(.ds-card-light__para) { margin: 12px 0 0; color: rgb(26 35 80 / 0.8); } .ds-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; min-height: 44px; font-family: 'Montserrat Variable', Montserrat, system-ui, sans-serif; font-weight: 700; color: var(--color-marino, #1a2350); text-decoration: underline; text-decoration-color: rgb(230 25 122 / 0.4); text-decoration-thickness: 2px; text-underline-offset: 4px; transition: text-decoration-color 0.2s; } .ds-link svg { color: var(--color-magenta, #e6197a); } .ds-link:hover { text-decoration-color: var(--color-magenta, #e6197a); }"
+    },
+    {
+      "name": "Badge en vivo",
+      "kind": "chip",
+      "refersTo": "chip-inverse",
+      "description": "Píldora translúcida sobre foto con punto rosa pulsante; cabecera del hero.",
+      "html": "<span class=\"ds-badge\"><span class=\"ds-badge__dot\"><span class=\"ds-badge__ping\"></span><span class=\"ds-badge__core\"></span></span><span class=\"ds-badge__label\">En vivo</span><span class=\"ds-badge__muted\">· lives a diario</span></span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 10px; border-radius: 9999px; background: rgb(19 26 58 / 0.7); box-shadow: inset 0 0 0 1px rgb(247 245 239 / 0.15); backdrop-filter: blur(4px); color: var(--color-hueso, #f7f5ef); font-family: 'Montserrat Variable', Montserrat, system-ui, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.025em; } .ds-badge__label { text-transform: uppercase; } .ds-badge__muted { font-family: 'Nunito Sans Variable', 'Nunito Sans', system-ui, sans-serif; font-weight: 600; color: rgb(247 245 239 / 0.7); } .ds-badge__dot { position: relative; display: flex; width: 10px; height: 10px; } .ds-badge__core, .ds-badge__ping { position: absolute; inset: 0; border-radius: 9999px; background: var(--color-rosa, #ff4d8d); } .ds-badge__ping { animation: ds-pulso 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite; } @keyframes ds-pulso { 0% { transform: scale(1); opacity: 0.85; } 70%, 100% { transform: scale(2.4); opacity: 0; } } @media (prefers-reduced-motion: reduce) { .ds-badge__ping { display: none; } }"
+    },
+    {
+      "name": "Campo de formulario",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Campo sobre marino para el modo formulario (nombre + celular). Foco con borde dorado.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field__label\">Tu celular</span><input class=\"ds-field__input\" type=\"tel\" placeholder=\"Ej. 987 654 321\"></label>",
+      "css": ".ds-field { display: grid; gap: 6px; font-family: 'Nunito Sans Variable', 'Nunito Sans', system-ui, sans-serif; } .ds-field__label { font-family: 'Montserrat Variable', Montserrat, system-ui, sans-serif; font-weight: 700; font-size: 14px; color: rgb(247 245 239 / 0.8); } .ds-field__input { width: 100%; min-height: 52px; padding: 12px 17.6px; border-radius: 16px; border: 2px solid rgb(247 245 239 / 0.25); background: rgb(19 26 58 / 0.65); color: var(--color-hueso, #f7f5ef); font: inherit; font-size: 16px; transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1); } .ds-field__input::placeholder { color: rgb(247 245 239 / 0.45); } .ds-field__input:focus { border-color: var(--color-dorado, #ffd23f); outline: none; }"
+    },
+    {
+      "name": "Sello 100% garantizado",
+      "kind": "custom",
+      "refersTo": "card-dark",
+      "description": "Sello dorado dentado con la promesa de los flyers; vive en la tarjeta del curso principal, rotado -6°.",
+      "html": "<svg class=\"ds-sello\" viewBox=\"0 0 100 100\" role=\"img\" aria-label=\"100% garantizado\"><circle cx=\"50\" cy=\"50\" r=\"46.5\" fill=\"none\" stroke=\"#ffd23f\" stroke-width=\"4\" stroke-dasharray=\"3.2 3.2\"/><circle cx=\"50\" cy=\"50\" r=\"43\" fill=\"#ffd23f\"/><circle cx=\"50\" cy=\"50\" r=\"37\" fill=\"none\" stroke=\"#131a3a\" stroke-width=\"1.5\" stroke-dasharray=\"2.5 2.5\"/><text x=\"50\" y=\"49\" text-anchor=\"middle\" font-family=\"Montserrat Variable, Montserrat, sans-serif\" font-weight=\"800\" font-size=\"24\" fill=\"#131a3a\">100%</text><text x=\"50\" y=\"63\" text-anchor=\"middle\" font-family=\"Montserrat Variable, Montserrat, sans-serif\" font-weight=\"800\" font-size=\"8\" letter-spacing=\"1\" fill=\"#131a3a\">GARANTIZADO</text></svg>",
+      "css": ".ds-sello { width: 96px; height: 96px; rotate: -6deg; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Pizarra de noche, cuaderno de día",
+    "overview": "La página alterna dos superficies que el público reconoce sin pensar: el azul marino profundo de una pizarra vista de noche desde el celular, y el blanco hueso de un cuaderno. Sobre esas dos superficies trabaja una sola herramienta expresiva, el plumón: dorado para subrayar, numerar y sellar; magenta o rosa para la única palabra que importa (\"desde cero\"); turquesa para los íconos dibujados a trazo. El verde existe solo para una cosa, el botón de WhatsApp, y por eso siempre se ve.\n\nLa densidad es de landing de una sola acción: primera pantalla completa con la profesora, secciones cortas que confirman y un cierre grande. No hay grises ni negros: todo neutro es un tinte de marino o de hueso con opacidad, así la página nunca se ve \"de plantilla\". Las formas son píldoras y tarjetas de esquinas muy redondeadas, sin bordes de color ni sombras duras. El motion es un solo momento autorado (la entrada del hero con el subrayado que se dibuja) y apoyos discretos al hacer scroll.\n\nRechazos confirmados por el brief: hero de dos columnas con ilustración, grilla de features iguales, testimonios de relleno, textos copiados de los flyers.",
+    "keyCharacteristics": [
+      "Dos superficies (marino y hueso) que se alternan sección a sección.",
+      "Un acento que actúa: el plumón dorado subraya, numera y sella.",
+      "Magenta/rosa reservado para la palabra clave y etiquetas; verde solo WhatsApp.",
+      "Sin grises: neutros teñidos con opacidad sobre marino o hueso.",
+      "Píldoras y tarjetas de 24px; sombras suaves con caída.",
+      "Montserrat 800 para todo titular, Nunito Sans para todo cuerpo."
+    ],
+    "rules": [
+      { "name": "La regla del verde único", "body": "El verde (#25d366) aparece solo en botones que abren WhatsApp. Ningún otro elemento lo usa, para que el botón se reconozca a un metro.", "section": "colors" },
+      { "name": "La regla sin grises", "body": "Ningún gris ni negro. Todo neutro es marino o hueso con opacidad.", "section": "colors" },
+      { "name": "La regla de la palabra", "body": "Magenta y rosa resaltan una palabra o una etiqueta corta; no pintan fondos ni bloques. Sobre marino se usa rosa (#ff4d8d); sobre hueso, magenta solo en íconos y subrayados, nunca en texto corrido.", "section": "colors" },
+      { "name": "La regla de dos familias", "body": "Montserrat para todo lo que titula, numera o etiqueta; Nunito Sans para todo lo que se lee. Nunca una tercera fuente, aunque los flyers mezclen varias.", "section": "typography" },
+      { "name": "La regla del plumón", "body": "El subrayado dorado dibujado (SVG, trazo redondo, curva a mano) va solo bajo la palabra clave del H1. No se repite bajo otros títulos.", "section": "typography" },
+      { "name": "La regla de la sombra con caída", "body": "Toda sombra tiene desplazamiento vertical y desenfoque. Nada de halos centrados ni sombras duras sin desenfoque.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do usar el verde (#25d366) solo en botones que abren WhatsApp, siempre con texto marino profundo.",
+      "Do alternar superficies marino y hueso por sección; una sección nunca mezcla las dos como fondo.",
+      "Do teñir todo neutro desde marino o hueso con opacidad (70–85% para secundario, 10–15% para divisores).",
+      "Do dibujar los íconos en SVG con trazo de 2px y puntas redondas; los logos de WhatsApp y TikTok van en relleno.",
+      "Do usar Montserrat 800 con tracking negativo en titulares y dejar el H1 en dos líneas con la segunda un paso mayor.",
+      "Do apagar todo motion con prefers-reduced-motion y dejar el contenido visible sin JS."
+    ],
+    "donts": [
+      "Don't usar grises, negros ni la paleta por defecto de Tailwind.",
+      "Don't poner magenta o rosa como fondo de bloque, ni turquesa como texto sobre hueso.",
+      "Don't usar texto blanco sobre el verde de WhatsApp.",
+      "Don't poner bordes de color en tarjetas ni sombras duras sin desenfoque.",
+      "Don't repetir el subrayado de plumón fuera del H1 del hero ni añadir eyebrows encima de otros títulos: el nameplate dorado es una excepción fijada por el brief solo para el hero.",
+      "Don't animar transform con CSS en elementos que GSAP también anima; los hovers usan translate."
+    ]
+  }
+}

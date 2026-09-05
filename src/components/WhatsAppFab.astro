@@ -1,0 +1,21 @@
+---
+/**
+ * Botón flotante de WhatsApp. Siempre visible (regla fija del brief), sin
+ * depender de JS. El hero y el footer llevan aire abajo para que no tape nada.
+ */
+import Icon from './icons/Icon.astro';
+import { enlaceWhatsApp } from '../lib/whatsapp';
+import { site } from '../content/site';
+---
+
+<a
+  href={enlaceWhatsApp(site.mensajes.general)}
+  target="_blank"
+  rel="noopener"
+  data-fab
+  class="fixed right-4 bottom-[calc(1rem_+_env(safe-area-inset-bottom))] z-50 inline-flex min-h-14 items-center gap-2.5 rounded-full bg-whatsapp py-3 pr-5 pl-4 font-display text-base font-bold text-marino-oscuro shadow-flotante transition-[translate,box-shadow] duration-200 ease-salida hover:-translate-y-0.5 motion-reduce:transition-none"
+  aria-label="Escríbeme al WhatsApp"
+>
+  <Icon nombre="whatsapp" class="h-7 w-7" />
+  <span>WhatsApp</span>
+</a>

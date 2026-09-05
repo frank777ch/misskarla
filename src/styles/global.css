@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+/* Tokens: la paleta de context/brand.md manda. Se borra la paleta por defecto
+   de Tailwind para que no exista ningún color fuera de la marca. */
+@theme {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-marino: #1a2350;
+  --color-marino-oscuro: #131a3a;
+  --color-magenta: #e6197a;
+  --color-rosa: #ff4d8d;
+  --color-dorado: #ffd23f;
+  --color-turquesa: #16b8a6;
+  --color-whatsapp: #25d366;
+  --color-hueso: #f7f5ef;
+
+  --font-display: "Montserrat Variable", "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Nunito Sans Variable", "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --ease-salida: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --shadow-tarjeta: 0 14px 34px -16px rgb(26 35 80 / 0.32), 0 2px 6px -2px rgb(26 35 80 / 0.12);
+  --shadow-boton: 0 12px 26px -12px rgb(37 211 102 / 0.6), 0 2px 4px -1px rgb(19 26 58 / 0.25);
+  --shadow-flotante: 0 16px 32px -14px rgb(19 26 58 / 0.55), 0 3px 8px -2px rgb(19 26 58 / 0.3);
+
+  --animate-pulso: pulso 1.8s var(--ease-salida) infinite;
+  @keyframes pulso {
+    0% { transform: scale(1); opacity: 0.85; }
+    70% { transform: scale(2.4); opacity: 0; }
+    100% { transform: scale(2.4); opacity: 0; }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    /* Los reveals de GSAP arrancan desplazados (x: 32px); sin esto desbordan el
+       ancho en móvil y el navegador reescala la página. `clip` no crea scroll
+       ni rompe position: fixed. */
+    overflow-x: clip;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--color-hueso) 28%, transparent) var(--color-marino-oscuro);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+  body {
+    background: var(--color-marino);
+    color: var(--color-hueso);
+    font-family: var(--font-body);
+    font-weight: 500;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+  p, li { text-wrap: pretty; }
+  ::selection {
+    background: var(--color-dorado);
+    color: var(--color-marino-oscuro);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-dorado);
+    outline-offset: 3px;
+    border-radius: 0.5rem;
+  }
+  a { text-underline-offset: 0.2em; }
+  input, button, select, textarea { font: inherit; }
+  strong { font-weight: 800; }
+}
+
+@utility contenedor {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 72rem;
+  padding-inline: 1.25rem;
+  @media (width >= 40rem) { padding-inline: 2rem; }
+}
+
+/* Botones: píldoras. Un solo tamaño base, variante grande para el cierre. */
+@utility boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 3rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 9999px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  /* El hover usa `translate` (no `transform`) para no pelear con GSAP, que anima `transform`. */
+  transition: translate 0.2s var(--ease-salida), box-shadow 0.2s var(--ease-salida), background-color 0.2s var(--ease-salida), border-color 0.2s var(--ease-salida);
+  &:hover { translate: 0 -2px; }
+  &:active { translate: 0 0; transition-duration: 0.08s; }
+  @media (prefers-reduced-motion: reduce) { &:hover { translate: none; } }
+}
+@utility boton-primario {
+  background: var(--color-whatsapp);
+  color: var(--color-marino-oscuro);
+  box-shadow: var(--shadow-boton);
+  &:hover { background: color-mix(in oklab, var(--color-whatsapp) 88%, white); }
+}
+@utility boton-grande {
+  min-height: 3.75rem;
+  padding: 1rem 2.25rem;
+  font-size: 1.125rem;
+}
+@utility boton-outline-oscuro {
+  border: 2px solid color-mix(in oklab, var(--color-hueso) 45%, transparent);
+  color: var(--color-hueso);
+  &:hover { border-color: var(--color-hueso); background: color-mix(in oklab, var(--color-hueso) 10%, transparent); }
+}
+@utility boton-outline-claro {
+  border: 2px solid color-mix(in oklab, var(--color-marino) 30%, transparent);
+  color: var(--color-marino);
+  &:hover { border-color: var(--color-marino); background: color-mix(in oklab, var(--color-marino) 6%, transparent); }
+}
+
+/* Subrayado de plumón: GSAP lo dibuja; sin JS se ve completo. */
+@utility plumon {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+/* Campos del formulario (solo si site.ctaModo === 'formulario'). */
+@utility campo {
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0.75rem 1.1rem;
+  border-radius: 1rem;
+  border: 2px solid color-mix(in oklab, var(--color-hueso) 25%, transparent);
+  background: color-mix(in oklab, var(--color-marino-oscuro) 65%, transparent);
+  color: var(--color-hueso);
+  transition: border-color 0.2s var(--ease-salida);
+  &::placeholder { color: color-mix(in oklab, var(--color-hueso) 45%, transparent); }
+  &:focus { border-color: var(--color-dorado); outline: none; }
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -6rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  background: var(--color-dorado);
+  color: var(--color-marino-oscuro);
+  font-family: var(--font-display);
+  font-weight: 700;
+  transition: top 0.2s var(--ease-salida);
+}
+.skip-link:focus { top: 1rem; }

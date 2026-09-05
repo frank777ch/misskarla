@@ -1,0 +1,73 @@
+---
+import Icon from './icons/Icon.astro';
+import TodoSlot from './TodoSlot.astro';
+import { site } from '../content/site';
+
+const { tiktok, instagram } = site.redes;
+const testimonios = site.testimonios;
+---
+
+<section id="comunidad" class="scroll-mt-4 bg-marino py-20 text-hueso sm:py-28" aria-labelledby="comunidad-titulo">
+  <div class="contenedor grid gap-10 lg:grid-cols-[auto_1fr] lg:items-center lg:gap-20">
+    <div data-reveal>
+      <p
+        class="font-display text-[length:clamp(4rem,16vw,6rem)] leading-none font-extrabold tracking-[-0.04em] text-dorado tabular-nums"
+        aria-label={`${tiktok.seguidoresTexto} seguidores en TikTok`}
+      >
+        <span aria-hidden="true"><span data-count={tiktok.seguidores}>{tiktok.seguidores.toFixed(1)}</span>K</span>
+      </p>
+      <p class="mt-2 font-display text-sm font-bold tracking-[0.18em] text-hueso/70 uppercase">seguidores en TikTok</p>
+    </div>
+
+    <div data-reveal>
+      <h2 id="comunidad-titulo" class="text-[length:clamp(2rem,6vw,3.25rem)] leading-[1.02] font-extrabold tracking-[-0.02em]">
+        Mírame explicar antes de escribirme
+      </h2>
+      <p class="mt-4 max-w-prose text-lg text-hueso/85">
+        Todos los días hago lives en TikTok resolviendo ejercicios paso a paso. Entra, mira cómo enseño y decide con
+        calma.
+      </p>
+      <div class="mt-7 flex flex-wrap items-center gap-3">
+        <a href={tiktok.url} target="_blank" rel="noopener" class="boton boton-outline-oscuro">
+          <Icon nombre="tiktok" class="h-5 w-5" />
+          <span>Ver mi TikTok</span>
+        </a>
+        <a
+          href={instagram.url}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex min-h-12 items-center gap-2 px-2 font-display font-bold text-hueso/80 transition-colors hover:text-hueso"
+        >
+          <Icon nombre="instagram" class="h-5 w-5" />
+          <span>{instagram.handle}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="contenedor mt-16">
+    {
+      testimonios.length > 0 ? (
+        <ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {testimonios.map((t) => (
+            <li class="rounded-3xl bg-marino-oscuro p-6 ring-1 ring-hueso/10">
+              {t.imagen ? (
+                <img src={t.imagen} alt={`Comentario de ${t.nombre}`} loading="lazy" class="w-full rounded-2xl" />
+              ) : (
+                <p class="text-hueso/90">“{t.texto}”</p>
+              )}
+              <p class="mt-4 font-display font-bold text-dorado">{t.nombre}</p>
+              {t.detalle && <p class="text-sm text-hueso/65">{t.detalle}</p>}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <TodoSlot
+          titulo="Testimonios de alumnos"
+          label="testimonios"
+          nota="Pendiente: Frank decide si van capturas reales de comentarios de sus videos o textos. Se cargan en src/content/site.ts (campo testimonios) y este bloque se arma solo."
+        />
+      )
+    }
+  </div>
+</section>

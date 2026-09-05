@@ -1,0 +1,116 @@
+---
+import Icon from './icons/Icon.astro';
+import BotonWhatsApp from './BotonWhatsApp.astro';
+import { site } from '../content/site';
+
+const { tiktok } = site.redes;
+---
+
+<header id="inicio" class="relative isolate flex min-h-svh flex-col overflow-hidden bg-marino text-hueso">
+  <!-- Foto: placeholder hasta que Frank pase la real (mismo nombre de archivo, recorte sobre fondo plano, 3:4). -->
+  <img
+    src="/img/profe-placeholder.jpg"
+    width="900"
+    height="1200"
+    alt="Miss Karla, docente de matemática"
+    fetchpriority="high"
+    decoding="async"
+    data-hero-foto
+    class="absolute inset-0 -z-30 h-full w-full object-cover object-[50%_12%] lg:left-auto lg:w-[56%] lg:object-[50%_100%]"
+  />
+
+  <!-- Notación de pizarra: el único adorno del hero. -->
+  <svg
+    class="pointer-events-none absolute inset-0 -z-20 h-full w-full text-turquesa opacity-[0.16] lg:left-auto lg:w-[56%]"
+    viewBox="0 0 400 800"
+    preserveAspectRatio="xMidYMid slice"
+    aria-hidden="true"
+  >
+    <g font-family="var(--font-display)" font-weight="700" fill="currentColor">
+      <text x="24" y="150" font-size="34">x²</text>
+      <text x="290" y="112" font-size="26">(a+b)²</text>
+      <text x="336" y="330" font-size="30">π</text>
+      <text x="30" y="420" font-size="24">√x</text>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M40 240 L100 160 L120 250 Z" />
+      <path d="M320 470 h50 M320 485 h50" />
+    </g>
+  </svg>
+
+  <!-- Degradado para que el texto se lea encima de la foto. -->
+  <div
+    class="absolute inset-0 -z-10 bg-linear-to-t from-marino from-34% via-marino/80 via-52% to-marino/0 to-80% lg:bg-linear-to-r lg:from-marino lg:from-40% lg:via-marino/75 lg:via-56% lg:to-marino/0 lg:to-82%"
+    aria-hidden="true"
+  >
+  </div>
+  <div class="absolute inset-x-0 bottom-0 -z-10 hidden h-2/5 bg-linear-to-t from-marino to-marino/0 lg:block" aria-hidden="true"></div>
+
+  <!-- Fila superior: badge en vivo y chip de TikTok -->
+  <div class="contenedor flex items-center justify-between gap-3 pt-[calc(1rem_+_env(safe-area-inset-top))] sm:pt-6" data-hero-top>
+    <span
+      class="inline-flex items-center gap-2 rounded-full bg-marino-oscuro/70 py-1.5 pr-3 pl-2.5 font-display text-xs font-bold tracking-wide text-hueso ring-1 ring-hueso/15 backdrop-blur-sm"
+    >
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="absolute inline-flex h-full w-full animate-pulso rounded-full bg-rosa motion-reduce:hidden"></span>
+        <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-rosa"></span>
+      </span>
+      <span class="uppercase">En vivo</span>
+      <span class="font-body font-semibold text-hueso/70">· lives a diario</span>
+    </span>
+    <a
+      href={tiktok.url}
+      target="_blank"
+      rel="noopener"
+      class="inline-flex items-center gap-2 rounded-full bg-marino-oscuro/70 py-1.5 pr-3 pl-2.5 font-display text-xs font-bold text-hueso ring-1 ring-hueso/15 backdrop-blur-sm transition-colors hover:bg-marino-oscuro"
+    >
+      <Icon nombre="tiktok" class="h-4 w-4" />
+      <span>{tiktok.seguidoresTexto}</span>
+      <span class="font-body font-semibold text-hueso/70">en TikTok</span>
+    </a>
+  </div>
+
+  <!-- Bloque de texto -->
+  <div
+    class="contenedor flex flex-1 flex-col justify-end pt-[42svh] pb-[calc(5.75rem_+_env(safe-area-inset-bottom))] lg:justify-center lg:pt-16 lg:pb-24"
+  >
+    <div class="max-w-xl lg:max-w-[50%]">
+      <p class="font-display text-[0.78rem] font-bold tracking-[0.2em] text-dorado uppercase sm:text-sm" data-hero-nombre>
+        Miss Karla · Docente de matemática
+      </p>
+      <h1 class="mt-3 font-display leading-[0.92] font-extrabold tracking-[-0.025em] text-hueso">
+        <span class="block text-[length:clamp(2.5rem,10.5vw,4.25rem)] lg:text-[length:clamp(2.75rem,4.6vw,4rem)]" data-hero-linea>Matemática</span>
+        <span
+          class="relative mt-1 inline-block text-[length:clamp(3.1rem,13.5vw,5.75rem)] text-rosa lg:text-[length:clamp(3.5rem,6.2vw,5.25rem)]"
+          data-hero-linea
+        >
+          desde cero
+          <svg
+            class="pointer-events-none absolute right-0 -bottom-[0.14em] left-0 h-[0.22em] w-full"
+            viewBox="0 0 300 30"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M6 20 C 60 8, 150 6, 294 14"
+              fill="none"
+              stroke="var(--color-dorado)"
+              stroke-width="9"
+              stroke-linecap="round"
+              pathLength="1"
+              class="plumon"
+              data-plumon
+            ></path>
+          </svg>
+        </span>
+      </h1>
+      <p class="mt-6 max-w-md text-lg leading-snug text-hueso/85 sm:text-xl" data-hero-sub>
+        Si la mate te cuesta, empezamos desde lo más básico. Paso a paso, con paciencia y <strong class="text-hueso">100% garantizado</strong>.
+      </p>
+      <div class="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center" data-hero-ctas>
+        <BotonWhatsApp mensaje={site.mensajes.general} respetaModo data-cta-hero="true" class="w-full sm:w-auto" />
+        <a href="#clases-grabadas" class="boton boton-outline-oscuro w-full sm:w-auto">Ver clases grabadas</a>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,48 @@
+---
+import Icon from './icons/Icon.astro';
+import { site } from '../content/site';
+---
+
+<section
+  id="como-funciona"
+  class="scroll-mt-4 border-t border-marino/10 bg-hueso py-20 text-marino sm:py-28"
+  aria-labelledby="como-titulo"
+>
+  <div class="contenedor grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-16">
+    <div data-reveal>
+      <h2 id="como-titulo" class="text-[length:clamp(2rem,6vw,3.25rem)] leading-[1.02] font-extrabold tracking-[-0.02em]">
+        Así de simple
+      </h2>
+      <p class="mt-4 text-lg text-marino/75">Sin trámites ni plataformas raras. Tres pasos y ya estás en clase.</p>
+      <p class="mt-6 rounded-2xl bg-marino/5 p-4 text-sm text-marino/80 ring-1 ring-marino/10">
+        <strong class="font-display text-marino">¿Eres mamá o papá?</strong> Escríbeme también: te explico cómo
+        funciona el ciclo, el pago y el grupo del curso.
+      </p>
+    </div>
+
+    <ol class="relative grid gap-9 lg:grid-cols-3 lg:gap-8" data-pasos>
+      {
+        site.pasos.map((paso, i) => (
+          <li class="relative pl-[4.5rem] lg:pl-0" data-paso>
+            {/* Segmento que une este paso con el siguiente: vertical en móvil, horizontal en escritorio. */}
+            {i < site.pasos.length - 1 && (
+              <span
+                class="absolute top-6 -bottom-9 left-6 w-0.5 origin-top bg-dorado lg:top-6 lg:-right-8 lg:bottom-auto lg:left-6 lg:h-0.5 lg:w-auto lg:origin-left"
+                data-linea-pasos
+                aria-hidden="true"
+              />
+            )}
+            <span class="absolute top-0 left-0 z-10 inline-flex h-12 w-12 items-center justify-center rounded-full bg-dorado font-display text-lg font-extrabold text-marino-oscuro ring-4 ring-hueso lg:static lg:mb-5 lg:flex">
+              {i + 1}
+            </span>
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-marino text-turquesa">
+              <Icon nombre={paso.icono} class="h-6 w-6" />
+            </span>
+            <h3 class="mt-4 text-xl font-extrabold tracking-[-0.01em]">{paso.titulo}</h3>
+            <p class="mt-2 text-marino/80">{paso.texto}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

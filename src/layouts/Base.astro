@@ -1,0 +1,57 @@
+---
+import '@fontsource-variable/montserrat';
+import '@fontsource-variable/nunito-sans';
+import '../styles/global.css';
+import WhatsAppFab from '../components/WhatsAppFab.astro';
+import { site } from '../content/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Miss Karla · Matemática desde cero',
+  description = 'Clases virtuales de matemática desde cero para secundaria y primaria. Paso a paso, con paciencia y 100% garantizado. Escríbeme al WhatsApp.',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? site.dominio).href;
+---
+
+<!doctype html>
+<html lang="es-PE">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#1a2350" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_PE" />
+    <meta property="og:site_name" content={site.nombre} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <!-- TODO: og:image para compartir en WhatsApp/redes cuando llegue la foto real. -->
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preload" as="image" href="/img/profe-placeholder.jpg" fetchpriority="high" />
+  </head>
+  <body>
+    <!--
+      THESIS: La profe te mira desde toda la pantalla y te dice "desde cero"; debajo, un solo botón verde. Rechaza el hero de dos columnas con ilustración, la grilla de features iguales y los testimonios de relleno.
+      OWN-WORLD: Marino como aula de noche en el celular; hueso como cuaderno. Magenta en la palabra que importa, dorado como plumón (subrayado, badges, cifras), turquesa en íconos de trazo, verde solo WhatsApp. Sin grises: neutros teñidos. Montserrat 800 + Nunito Sans. Píldoras; tarjetas sin bordes de color.
+      STORY: Llego de TikTok, reconozco a la Miss, entiendo "desde cero, paso a paso", ubico mi curso, entiendo pago → grupo → material, confío (61.5K, lives) y escribo.
+      FIRST VIEWPORT: móvil: foto a 100svh con degradado marino desde el 40%; arriba badge EN VIVO y chip TikTok; abajo nombre dorado, H1 en dos líneas con "desde cero" mayor, en rosa y con subrayado de plumón que se dibuja; una frase; botón verde a todo el ancho; outline debajo. Escritorio: texto 45% izquierda, foto derecha al piso.
+      FORM: fijada por el brief (context/estructura.md) sobre el dado efe5d0cd (asignación 7 reconocida; seis retadores declinados). Raises: escala como volumen (Massin), un acento que actúa (cordón → plumón), paleta sin grises (Ikeda).
+      FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+    -->
+    <a href="#contenido" class="skip-link">Saltar al contenido</a>
+    <slot />
+    <WhatsAppFab />
+    <script>
+      import '../scripts/motion';
+    </script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+---
+/** Chip amarillo "TODO" visible mientras site.mostrarPendientes sea true. */
+import { site } from '../content/site';
+
+interface Props {
+  label: string;
+  class?: string;
+}
+const { label, class: className = '' } = Astro.props;
+---
+
+{
+  site.mostrarPendientes && (
+    <span
+      class:list={[
+        'inline-flex items-center gap-1 rounded-md bg-dorado px-1.5 py-0.5 align-middle font-display text-[11px] font-extrabold tracking-wider text-marino-oscuro uppercase',
+        className,
+      ]}
+      title="Pendiente de confirmar con Frank"
+    >
+      TODO · {label}
+    </span>
+  )
+}

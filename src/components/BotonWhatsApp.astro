@@ -1,0 +1,44 @@
+---
+/**
+ * Único componente de CTA. Hoy abre WhatsApp con mensaje prellenado.
+ * Si site.ctaModo es 'formulario' y el botón es el del hero (respetaModo),
+ * manda al formulario del cierre en vez de abrir WhatsApp.
+ */
+import Icon from './icons/Icon.astro';
+import { enlaceWhatsApp } from '../lib/whatsapp';
+import { site } from '../content/site';
+
+interface Props {
+  mensaje: string;
+  texto?: string;
+  variante?: 'primario' | 'outline-oscuro' | 'outline-claro';
+  grande?: boolean;
+  respetaModo?: boolean;
+  class?: string;
+  [key: `data-${string}`]: string | boolean | undefined;
+}
+
+const {
+  mensaje,
+  texto = 'Escríbeme al WhatsApp',
+  variante = 'primario',
+  grande = false,
+  respetaModo = false,
+  class: className = '',
+  ...resto
+} = Astro.props;
+
+const alFormulario = respetaModo && site.ctaModo === 'formulario';
+const href = alFormulario ? '#contacto' : enlaceWhatsApp(mensaje);
+---
+
+<a
+  href={href}
+  class:list={['boton', `boton-${variante}`, grande && 'boton-grande', className]}
+  target={alFormulario ? undefined : '_blank'}
+  rel={alFormulario ? undefined : 'noopener'}
+  {...resto}
+>
+  <Icon nombre="whatsapp" class={grande ? 'h-6 w-6' : 'h-5 w-5'} />
+  <span>{texto}</span>
+</a>
