@@ -3,6 +3,11 @@
 Landing de conversión de una sola página para Karla Cornejo Flores ("Miss Karla"),
 docente de matemática. Todo empuja al WhatsApp.
 
+Diseño (2026-09-05, segunda ronda): **la estructura del portafolio "Madison"** (Dribbble),
+con paleta cálida. Saludo cursivo detrás de la cabeza, nombre gigante en Anton pisando la
+foto, y las secciones de la referencia traducidas a los cursos de Karla. Detalle en
+`context/estructura.md` y `context/referencias/inspiracion/madison/`.
+
 Stack: Astro 7 + Tailwind CSS 4 + GSAP 3. Salida estática, lista para Cloudflare Pages.
 
 ## Correr
@@ -16,27 +21,44 @@ npm run preview   # sirve dist/
 
 ## Dónde se edita el contenido
 
-Toda la data vive en `src/content/site.ts`. Ahí están los cursos, los pasos, los
-mensajes prellenados de WhatsApp, las redes y **todos los pendientes** marcados con
-`TODO`. No hace falta tocar componentes para llenarlos.
+Toda la data vive en `src/content/site.ts`: textos del hero, nav, cursos, temas, pasos,
+horarios, galería, mensajes prellenados de WhatsApp, redes y **todos los pendientes**
+marcados con `TODO`. No hace falta tocar componentes para llenarlos.
 
-Mientras `mostrarPendientes` sea `true`, la página muestra chips amarillos "TODO"
-sobre cada dato pendiente y el bloque de testimonios vacío. Ponlo en `false` antes
-de publicar.
+`mostrarPendientes` está en `false` (2026-09-05): la página se ve completa con datos
+**provisionales** marcados `PROVISIONAL` en `site.ts` (15 años, precios, horarios y tres
+reseñas inventadas). Si lo pones en `true`, vuelven los chips "TODO" y las etiquetas
+"foto de ejemplo".
+
+Imágenes con IA: `node scripts/generar-imagenes.mjs public/img/cursos/<nombre> .impeccable/prompts/<nombre>.txt`
+genera una imagen Full HD (16:9) con Gemini y su `.json` con el prompt. Lee `GEMINI_API_KEY` de `.env`
+(ignorado por Git). Acepta `--ref foto.jpg` para usar una foto de referencia y `--ratio 4:3`.
+
+Videos de la galería "Mírame en vivo" y de "Cómo enseño": `node scripts/videos.mjs <tiktok.mp4> <nombre> [segundo]`
+recorta 10 s sin audio a 480 px y genera `public/video/<nombre>.{webm,mp4,webp}`; luego se
+registra en `site.videos` con el id del video de TikTok. Necesita `ffmpeg` (el de Fedora sirve:
+usa VP9 y OpenH264).
+
+Capturas: `node scripts/captura.mjs <salida.png> <ancho> <alto> [--full] [--movil]` saca
+una captura con Chrome headless (movimiento reducido, todas las imágenes cargadas). El
+histórico de iteraciones va fechado en `context/historico/`.
 
 ## Pendientes (Frank)
 
 | Pendiente | Dónde | Qué pasa mientras tanto |
 |-----------|-------|-------------------------|
-| Precios de cada curso | `site.cursos[].precio` | Se muestra "consúltalo por WhatsApp" |
-| Horarios del ciclo actual | `site.horarios` | Se muestra "te lo confirmo por WhatsApp" con botón |
-| Testimonios (capturas o textos) | `site.testimonios` | Se muestra un bloque pendiente; con datos se arma solo |
+| Foto de la profe (ya entregada) | `src/assets/foto/profe.png` | Para cambiarla: reemplaza el PNG (fondo transparente, 1600×2000) y corre `npm run foto`, que regenera `public/img/profe.webp` y `profe-avatar.webp` (lo único que se publica) |
+| Años enseñando | `site.aniosEnsenando` | Provisional: 15 |
+| Fotos de los cursos | `public/img/cursos/` + `site.cursos[].foto` | Generadas con Gemini (`node scripts/generar-imagenes.mjs <salida> <prompt.txt>`, clave en `.env`); regenerar si Karla prefiere fotos reales |
+| Precios de cada curso | `site.cursos[].precio` | Provisionales (inventados); `null` vuelve a "consúltalo por WhatsApp" |
+| Horarios del ciclo actual | `site.horarios` | Provisionales (inventados); vacío vuelve a la fila "cambian cada ciclo" |
+| Testimonios (capturas o textos) | `site.testimonios` | Tres reseñas provisionales (inventadas) bajo "Mírame en vivo" |
 | Lema "Tu fe es tu fortuna" | `site.lema` | No se muestra (`null`) |
-| CTA directo o formulario | `site.ctaModo` | `'directo'` abre WhatsApp; `'formulario'` pide nombre + celular y luego abre WhatsApp |
-| Foto real de la profe | `public/img/profe-placeholder.jpg` | Reemplazar el archivo con el mismo nombre. Recorte sobre fondo plano, vertical 3:4, mínimo 1200 px de ancho |
-| Imagen para compartir (og:image) | `src/layouts/Base.astro` | Sin imagen hasta tener la foto real |
+| Imagen para compartir (og:image) | `src/layouts/Base.astro` | Pendiente de armar con `src/assets/foto/profe-original.jpg` |
 | Dominio final | `astro.config.mjs` (`site`) y `site.dominio` | `https://misskarla.pages.dev` |
 | Plataforma exacta de videollamada | copy de `site.ts` | El copy dice "videollamada" sin nombrar la plataforma |
+
+Decidido: el CTA abre WhatsApp directo, sin formulario.
 
 ## Contexto de diseño
 
@@ -44,4 +66,6 @@ de publicar.
 - `context/brand.md`: paleta, tipografía, voz.
 - `context/estructura.md`: secciones y copy sugerido.
 - `context/referencias/`: flyers y perfiles reales (solo para leer, no copiar).
-- `PRODUCT.md` y `DESIGN.md`: registro de producto y sistema visual (skill Impeccable).
+- `context/referencias/inspiracion/madison/`: capturas y lectura de la referencia de layout (heynesh queda como histórico).
+- `PRODUCT.md`, `DESIGN.md` y `.impeccable/`: registro de producto, sistema visual y
+  contrato de dirección (skill Impeccable).

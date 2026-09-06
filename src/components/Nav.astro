@@ -1,0 +1,27 @@
+---
+/** Nav de la referencia: logo cursivo, enlaces al centro (solo escritorio), botón negro. */
+import Icon from './icons/Icon.astro';
+import { site } from '../content/site';
+import { enlaceWhatsApp } from '../lib/whatsapp';
+---
+
+<nav class="contenedor flex items-center justify-between gap-4 py-4 lg:py-7" aria-label="Principal">
+  <a href="#inicio" class="cursiva text-[1.625rem] leading-none text-tinta no-underline lg:text-[2rem]">
+    {site.nombre}<span class="text-acento">.</span>
+  </a>
+  <ul class="m-0 hidden list-none items-center gap-9 p-0 lg:flex">
+    {
+      site.nav.map((item) => (
+        <li>
+          <a href={item.href} class="text-[0.9375rem] font-medium text-tinta no-underline transition-colors hover:text-tinta-2">
+            {item.texto}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <a href={enlaceWhatsApp(site.mensajes.general)} target="_blank" rel="noopener" class="boton min-h-10 px-4 py-2 text-[0.875rem] lg:min-h-12 lg:px-6 lg:text-[0.9375rem]">
+    <Icon nombre="whatsapp" class="h-[1.125rem] w-[1.125rem]" />
+    <span>WhatsApp</span>
+  </a>
+</nav>

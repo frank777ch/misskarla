@@ -1,0 +1,73 @@
+---
+/** "Mírame en vivo" (= My workstation): galería en fila + enlace a TikTok + slot de testimonios. */
+import VideoTikTok from './VideoTikTok.astro';
+import Icon from './icons/Icon.astro';
+import TodoChip from './TodoChip.astro';
+import { site } from '../content/site';
+
+const { tiktok } = site.redes;
+---
+
+<section id="en-vivo" class="scroll-mt-6 pt-20 pb-6 lg:pt-32 lg:pb-10" aria-labelledby="en-vivo-titulo">
+  <div class="contenedor">
+    <h2 id="en-vivo-titulo" class="titulo m-0 text-center" data-anim data-reveal>Mírame en vivo</h2>
+    <p class="mx-auto mt-5 mb-0 max-w-[30rem] text-center text-[0.9375rem] leading-relaxed text-tinta-2" data-anim data-reveal>
+      Todos los días resuelvo ejercicios en vivo en TikTok. Toca cualquier video para verlo completo y decide con calma.
+    </p>
+  </div>
+
+  <ul
+    class="m-0 mt-10 flex snap-x snap-mandatory list-none gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] sm:px-8 lg:mt-14 lg:grid lg:grid-cols-4 lg:gap-6 lg:overflow-visible lg:px-10 lg:[max-width:85rem] lg:mx-auto"
+    data-reveal-grupo
+  >
+    {
+      site.videos.map((v) => (
+        <li class="w-[64%] shrink-0 snap-center sm:w-[40%] lg:w-auto" data-anim>
+          <VideoTikTok nombre={v.nombre} url={`${tiktok.url}/video/${v.id}`} titulo={v.titulo} />
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="contenedor mt-8 flex flex-col items-center gap-6 text-center lg:mt-12" data-reveal-grupo>
+    <a href={tiktok.url} target="_blank" rel="noopener" class="enlace text-[1.0625rem]" data-anim>
+      <Icon nombre="tiktok" class="h-5 w-5" /> {tiktok.handle} · {tiktok.seguidoresTexto} seguidores
+    </a>
+    {
+      site.testimonios.length === 0 && site.mostrarPendientes && (
+        <p class="m-0 max-w-[28rem] rounded-2xl border border-dashed border-linea px-5 py-4 text-[0.875rem] text-tinta-2" data-anim>
+          Aquí van los testimonios de alumnos y padres (capturas o textos). <TodoChip label="testimonios" />
+        </p>
+      )
+    }
+  </div>
+
+  {
+    site.testimonios.length > 0 && (
+      <div class="contenedor mt-16 lg:mt-24" data-reveal-grupo>
+        <h3 class="m-0 text-[1.375rem] leading-tight font-semibold tracking-[-0.01em]" data-anim>
+          Lo que dicen mis alumnos y sus papás
+        </h3>
+        <ul class="m-0 mt-6 grid list-none grid-cols-1 gap-x-8 border-t border-linea p-0 md:grid-cols-3">
+          {site.testimonios.map((t) => (
+            <li class="border-b border-linea py-7 md:border-b-0 md:border-r md:pr-8 md:last:border-r-0 md:last:pr-0" data-anim>
+              <figure class="m-0 flex h-full flex-col">
+                {t.imagen ? (
+                  <img src={t.imagen} alt={`Captura del testimonio de ${t.nombre}`} loading="lazy" decoding="async" class="foto aspect-[4/5] w-full" />
+                ) : (
+                  <blockquote class="m-0 flex-1 text-[1.0625rem] leading-relaxed text-tinta">
+                    <span class="cursiva mr-1 text-[1.5rem] leading-none text-acento" aria-hidden="true">“</span>{t.texto}
+                  </blockquote>
+                )}
+                <figcaption class="mt-5 text-[0.9375rem]">
+                  <span class="font-semibold">{t.nombre}</span>
+                  {t.detalle && <span class="text-tinta-2"> · {t.detalle}</span>}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+</section>

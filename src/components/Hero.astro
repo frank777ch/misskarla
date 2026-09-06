@@ -1,116 +1,150 @@
 ---
-import Icon from './icons/Icon.astro';
-import BotonWhatsApp from './BotonWhatsApp.astro';
+/**
+ * Hero de la referencia: resplandor cálido detrás de Karla, el saludo cursivo
+ * a los lados de su cabeza, el nombre gigante en Anton pisando la foto y el rol
+ * en tres líneas. En móvil la misma escena se apila (saludo, foto, nombre,
+ * píldora, rol, párrafo). La entrada dura ~1 s (motion.ts).
+ */
+import TodoChip from './TodoChip.astro';
 import { site } from '../content/site';
+import { FOTO } from '../lib/foto';
 
-const { tiktok } = site.redes;
+const { saludo, nombreLineas, pildora, parrafo } = site.hero;
 ---
 
-<header id="inicio" class="relative isolate flex min-h-svh flex-col overflow-hidden bg-marino text-hueso">
-  <!-- Foto: placeholder hasta que Frank pase la real (mismo nombre de archivo, recorte sobre fondo plano, 3:4). -->
-  <img
-    src="/img/profe-placeholder.jpg"
-    width="900"
-    height="1200"
-    alt="Miss Karla, docente de matemática"
-    fetchpriority="high"
-    decoding="async"
-    data-hero-foto
-    class="absolute inset-0 -z-30 h-full w-full object-cover object-[50%_12%] lg:left-auto lg:w-[56%] lg:object-[50%_100%]"
-  />
+<header id="inicio" class="relative isolate overflow-hidden bg-fondo text-tinta">
+  <div class="resplandor" data-hero-resplandor aria-hidden="true"></div>
 
-  <!-- Notación de pizarra: el único adorno del hero. -->
-  <svg
-    class="pointer-events-none absolute inset-0 -z-20 h-full w-full text-turquesa opacity-[0.16] lg:left-auto lg:w-[56%]"
-    viewBox="0 0 400 800"
-    preserveAspectRatio="xMidYMid slice"
-    aria-hidden="true"
-  >
-    <g font-family="var(--font-display)" font-weight="700" fill="currentColor">
-      <text x="24" y="150" font-size="34">x²</text>
-      <text x="290" y="112" font-size="26">(a+b)²</text>
-      <text x="336" y="330" font-size="30">π</text>
-      <text x="30" y="420" font-size="24">√x</text>
-    </g>
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
-      <path d="M40 240 L100 160 L120 250 Z" />
-      <path d="M320 470 h50 M320 485 h50" />
-    </g>
-  </svg>
-
-  <!-- Degradado para que el texto se lea encima de la foto. -->
-  <div
-    class="absolute inset-0 -z-10 bg-linear-to-t from-marino from-34% via-marino/80 via-52% to-marino/0 to-80% lg:bg-linear-to-r lg:from-marino lg:from-40% lg:via-marino/75 lg:via-56% lg:to-marino/0 lg:to-82%"
-    aria-hidden="true"
-  >
-  </div>
-  <div class="absolute inset-x-0 bottom-0 -z-10 hidden h-2/5 bg-linear-to-t from-marino to-marino/0 lg:block" aria-hidden="true"></div>
-
-  <!-- Fila superior: badge en vivo y chip de TikTok -->
-  <div class="contenedor flex items-center justify-between gap-3 pt-[calc(1rem_+_env(safe-area-inset-top))] sm:pt-6" data-hero-top>
-    <span
-      class="inline-flex items-center gap-2 rounded-full bg-marino-oscuro/70 py-1.5 pr-3 pl-2.5 font-display text-xs font-bold tracking-wide text-hueso ring-1 ring-hueso/15 backdrop-blur-sm"
-    >
-      <span class="relative flex h-2.5 w-2.5">
-        <span class="absolute inline-flex h-full w-full animate-pulso rounded-full bg-rosa motion-reduce:hidden"></span>
-        <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-rosa"></span>
-      </span>
-      <span class="uppercase">En vivo</span>
-      <span class="font-body font-semibold text-hueso/70">· lives a diario</span>
-    </span>
-    <a
-      href={tiktok.url}
-      target="_blank"
-      rel="noopener"
-      class="inline-flex items-center gap-2 rounded-full bg-marino-oscuro/70 py-1.5 pr-3 pl-2.5 font-display text-xs font-bold text-hueso ring-1 ring-hueso/15 backdrop-blur-sm transition-colors hover:bg-marino-oscuro"
-    >
-      <Icon nombre="tiktok" class="h-4 w-4" />
-      <span>{tiktok.seguidoresTexto}</span>
-      <span class="font-body font-semibold text-hueso/70">en TikTok</span>
-    </a>
-  </div>
-
-  <!-- Bloque de texto -->
-  <div
-    class="contenedor flex flex-1 flex-col justify-end pt-[42svh] pb-[calc(5.75rem_+_env(safe-area-inset-bottom))] lg:justify-center lg:pt-16 lg:pb-24"
-  >
-    <div class="max-w-xl lg:max-w-[50%]">
-      <p class="font-display text-[0.78rem] font-bold tracking-[0.2em] text-dorado uppercase sm:text-sm" data-hero-nombre>
-        Miss Karla · Docente de matemática
+  <div class="contenedor relative">
+    <!-- ===== Móvil / tablet: escena apilada ===== -->
+    <div class="relative pb-8 lg:hidden">
+      <!-- Saludo detrás de la cabeza -->
+      <p
+        class="cursiva pointer-events-none absolute inset-x-0 top-[clamp(2.75rem,8.5vw,5rem)] z-0 m-0 grid grid-cols-[minmax(0,1fr)_clamp(4.5rem,22vw,9rem)_minmax(0,1fr)] text-[clamp(3.25rem,15vw,6.5rem)] leading-none"
+        aria-hidden="true"
+        data-hero-saludo
+      >
+        <span class="text-right -mr-[0.2em]" data-anim>{saludo[0]}</span>
+        <span></span>
+        <span class="text-left" data-anim>{saludo[1]}</span>
       </p>
-      <h1 class="mt-3 font-display leading-[0.92] font-extrabold tracking-[-0.025em] text-hueso">
-        <span class="block text-[length:clamp(2.5rem,10.5vw,4.25rem)] lg:text-[length:clamp(2.75rem,4.6vw,4rem)]" data-hero-linea>Matemática</span>
+
+      <h1 class="relative z-10 m-0">
+        <span class="sr-only">{saludo.join(' ')} {site.nombre}, {site.rol.toLowerCase()}</span>
+        <!-- Foto -->
+        <span class="relative mx-auto block w-[min(92%,26rem)] pt-[clamp(4rem,13vw,6.5rem)]" aria-hidden="true">
+          <img
+            src={FOTO.src}
+            width={FOTO.ancho}
+            height={FOTO.alto}
+            alt=""
+            fetchpriority="high"
+            decoding="async"
+            data-hero-foto
+            data-anim
+            class="foto-hero block h-auto w-full [--fundido:46%] [--fundido-fin:92%]"
+          />
+          {
+            !FOTO.esReal && (
+              <span class="absolute top-[30%] left-1/2 -translate-x-1/2">
+                <TodoChip label="foto real (profe.png)" />
+              </span>
+            )
+          }
+        </span>
+        <!-- Nombre gigante, pisando la foto -->
         <span
-          class="relative mt-1 inline-block text-[length:clamp(3.1rem,13.5vw,5.75rem)] text-rosa lg:text-[length:clamp(3.5rem,6.2vw,5.25rem)]"
-          data-hero-linea
+          class="relative z-10 -mt-[21vw] flex flex-col gap-[0.08em] font-titular text-[clamp(5.25rem,23vw,9.5rem)] leading-[0.86] tracking-[-0.005em] uppercase sm:-mt-[18vw]"
+          aria-hidden="true"
         >
-          desde cero
-          <svg
-            class="pointer-events-none absolute right-0 -bottom-[0.14em] left-0 h-[0.22em] w-full"
-            viewBox="0 0 300 30"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M6 20 C 60 8, 150 6, 294 14"
-              fill="none"
-              stroke="var(--color-dorado)"
-              stroke-width="9"
-              stroke-linecap="round"
-              pathLength="1"
-              class="plumon"
-              data-plumon
-            ></path>
-          </svg>
+          {
+            nombreLineas.map((l) => (
+              <span class="block overflow-hidden pt-[0.12em] -mt-[0.12em] px-[0.04em] -mx-[0.04em]">
+                <span class="block" data-hero-linea data-anim>{l}</span>
+              </span>
+            ))
+          }
         </span>
       </h1>
-      <p class="mt-6 max-w-md text-lg leading-snug text-hueso/85 sm:text-xl" data-hero-sub>
-        Si la mate te cuesta, empezamos desde lo más básico. Paso a paso, con paciencia y <strong class="text-hueso">100% garantizado</strong>.
-      </p>
-      <div class="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center" data-hero-ctas>
-        <BotonWhatsApp mensaje={site.mensajes.general} respetaModo data-cta-hero="true" class="w-full sm:w-auto" />
-        <a href="#clases-grabadas" class="boton boton-outline-oscuro w-full sm:w-auto">Ver clases grabadas</a>
+
+      <div class="relative z-10 mt-4 flex flex-col gap-4">
+        <p class="m-0" data-hero-item data-anim>
+          <span class="pildora">
+            <span class="relative flex h-2.5 w-2.5 shrink-0">
+              <span class="absolute inline-flex h-full w-full animate-pulso rounded-full bg-acento motion-reduce:hidden"></span>
+              <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-acento"></span>
+            </span>
+            {pildora}
+          </span>
+        </p>
+        <p class="m-0 font-titular text-[clamp(2rem,8.5vw,3rem)] leading-[1.1] uppercase" data-hero-item data-anim>
+          {site.rolLineas.map((l) => <span class="block">{l}</span>)}
+        </p>
+        <p class="m-0 max-w-[26rem] text-[0.9375rem] leading-snug text-tinta-2" data-hero-item data-anim>{parrafo}</p>
       </div>
+    </div>
+
+    <!-- ===== Escritorio: la composición de la referencia ===== -->
+    <div class="relative hidden h-[clamp(40rem,calc(100vh-6.5rem),54rem)] lg:block">
+      <p
+        class="cursiva pointer-events-none absolute inset-x-0 top-[13%] z-0 m-0 grid grid-cols-[minmax(0,1fr)_clamp(15rem,23vw,21rem)_minmax(0,1fr)] text-[clamp(7rem,min(12.5vw,22vh),12.5rem)] leading-none"
+        aria-hidden="true"
+        data-hero-saludo
+      >
+        <span class="text-right -mr-[0.2em]" data-anim>{saludo[0]}</span>
+        <span></span>
+        <span class="text-left" data-anim>{saludo[1]}</span>
+      </p>
+
+      <img
+        src={FOTO.src}
+        width={FOTO.ancho}
+        height={FOTO.alto}
+        alt={`${site.nombre}, ${site.rol.toLowerCase()}`}
+        fetchpriority="high"
+        decoding="async"
+        data-hero-foto
+        data-anim
+        class="foto-hero absolute bottom-0 left-1/2 z-10 h-[88%] w-auto max-w-none -translate-x-1/2 [--fundido:84%]"
+      />
+      {
+        !FOTO.esReal && (
+          <span class="absolute top-[30%] left-1/2 z-30 -translate-x-1/2">
+            <TodoChip label="foto real (profe.png)" />
+          </span>
+        )
+      }
+
+      <div class="absolute bottom-[3%] left-0 z-20 flex flex-col items-start gap-6">
+        <p class="m-0" data-hero-item data-anim>
+          <span class="pildora">
+            <span class="relative flex h-2.5 w-2.5 shrink-0">
+              <span class="absolute inline-flex h-full w-full animate-pulso rounded-full bg-acento motion-reduce:hidden"></span>
+              <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-acento"></span>
+            </span>
+            {pildora}
+          </span>
+        </p>
+        <h1 class="m-0 flex flex-col gap-[0.06em] font-titular text-[clamp(7rem,min(13.5vw,22vh),12.5rem)] leading-[0.86] tracking-[-0.005em] uppercase">
+          <span class="sr-only">{saludo.join(' ')} {site.nombre}, {site.rol.toLowerCase()}</span>
+          {
+            nombreLineas.map((l) => (
+              <span class="block overflow-hidden pt-[0.12em] -mt-[0.12em] px-[0.04em] -mx-[0.04em]" aria-hidden="true">
+                <span class="block" data-hero-linea data-anim>{l}</span>
+              </span>
+            ))
+          }
+        </h1>
+      </div>
+
+      <p class="absolute right-0 bottom-[6%] z-20 m-0 font-titular text-[clamp(2.75rem,min(4.4vw,7.5vh),4.25rem)] leading-[1.08] uppercase" data-hero-item data-anim>
+        {site.rolLineas.map((l) => <span class="block">{l}</span>)}
+      </p>
+
+      <p class="absolute top-[48%] right-0 z-20 m-0 max-w-[15.5rem] text-[0.9375rem] leading-snug text-tinta-2" data-hero-item data-anim>
+        {parrafo}
+      </p>
+
     </div>
   </div>
 </header>

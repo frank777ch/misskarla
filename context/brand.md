@@ -1,25 +1,29 @@
 # Marca — Miss Karla
 
-Todo lo de aquí sale de sus flyers y perfiles reales (`context/referencias/`).
-Los hex son una lectura aproximada de los flyers. Ajústalos si Frank pasa los exactos.
+Dirección visual decidida con Frank el 2026-09-05 (segunda ronda): **el look cálido del portafolio
+"Madison"** (`context/referencias/inspiracion/madison/`). La paleta marino + magenta de los flyers
+queda descartada para la web: transmitía academia y apuro; lo cálido transmite calma, confianza
+y cercanía, que es justo lo que Karla vende ("desde cero, con paciencia").
 
 ## Colores
 | Rol | Hex | Uso |
 |-----|-----|-----|
-| Azul marino | `#1a2350` / fondo `#131a3a` | fondos, hero, secciones oscuras |
-| Magenta / rosa | `#e6197a` (acento) / `#ff4d8d` (claro) | acento principal, resaltar palabras, CTAs secundarios |
-| Amarillo / dorado | `#ffd23f` | detalles, badges, kicker "MISS KARLA" |
-| Turquesa | `#16b8a6` | acentos secundarios, íconos |
-| Verde WhatsApp | `#25d366` | solo el botón de WhatsApp |
-| Blanco hueso | `#f7f5ef` | fondos claros, texto sobre oscuro |
+| Fondo | `#fdfbf7` (blanco cálido) | toda la página |
+| Resplandor | `#ffe9a8` → `#ffc9a3` (amarillo suave a durazno) | detrás de Karla en el hero; franjas suaves entre secciones |
+| Tinta | `#111111` | titulares, cuerpo, botones principales |
+| Tinta secundaria | `#5c5750` | párrafos de apoyo, etiquetas |
+| Acento | `#0f8b8d` (verde azulado) | el punto de la píldora, el punto del logo y las comillas de las reseñas; complementario del durazno. Elegido por Frank el 2026-09-05 en lugar del naranja de la referencia. Los numerales 01-04 van en gris cálido claro |
+| (sin verde) | — | El ícono de WhatsApp va en blanco dentro de los botones negros; el verde de WhatsApp no se usa (decisión de Frank, 2026-09-05) |
 
-Combinación base del hero: fondo marino con degradado hacia abajo, palabra clave
-en magenta, kicker en dorado.
+Los botones son negros en píldora (nav, CTA, flotante) con el ícono de WhatsApp en blanco:
+un solo color de botón y ningún color ajeno en la página.
+No se usa el marino ni el magenta: el saco marino de la foto ya aporta el azul.
 
-## Tipografía
-- Titulares: una sans redonda y fuerte (Poppins o Montserrat, peso 600-800).
-- Cuerpo: Inter o Nunito Sans.
-- Sus flyers mezclan varias fuentes; en la web usa máximo dos para que se vea limpio.
+## Tipografía (tres voces, roles fijos)
+- **Instrument Serif itálica** → lo emocional: el saludo "Hola, soy" del hero y el logo "Miss Karla."
+- **Anton** → los titulares en mayúsculas: "MISS KARLA", "MIS CURSOS", "TE AYUDO CON".
+- **Inter** → todo lo demás: nav, párrafos, etiquetas, botones.
+Las tres se autohospedan con Fontsource. No agregar una cuarta.
 
 ## Voz y tono
 - Cercana, motivadora, paciente. Le habla a estudiantes de secundaria y a sus padres.
@@ -43,6 +47,14 @@ en magenta, kicker en dorado.
 - **Taller de concursos.**
 - Cómo funciona: pago adelantado → grupo seleccionado → envío de material en PDF.
 
+## Imágenes
+- La foto del hero es la de Frank (`src/assets/foto/profe.png` → `npm run foto`).
+- Las fotos de los cursos (`public/img/cursos/`) están generadas con Gemini, Full HD, con la
+  misma dirección: luz cálida de ventana, crema y durazno, estudiantes peruanos, sin texto.
+  Prompts en `.impeccable/prompts/`; cada WebP lleva su `.json` de origen.
+- Los videos (`public/video/`) son TikToks reales de Karla recortados a clips mudos de 10 a 14 s.
+
 ## TODO de datos
 - Precios (o "consulta por WhatsApp").
 - Horarios exactos del ciclo actual (los flyers tienen varios, cambian por ciclo).
+- Años enseñando y tres hitos reales.

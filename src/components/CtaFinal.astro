@@ -1,100 +1,24 @@
 ---
-import Icon from './icons/Icon.astro';
+/** Cierre: franja con el resplandor cálido, pregunta grande y el botón. */
 import BotonWhatsApp from './BotonWhatsApp.astro';
-import TodoChip from './TodoChip.astro';
+import Icon from './icons/Icon.astro';
 import { site } from '../content/site';
-import { WHATSAPP_NUMERO, WHATSAPP_TEL, WHATSAPP_VISIBLE } from '../lib/whatsapp';
-
-const conFormulario = site.ctaModo === 'formulario';
+import { WHATSAPP_TEL, WHATSAPP_VISIBLE } from '../lib/whatsapp';
 ---
 
-<section
-  id="contacto"
-  class="relative isolate scroll-mt-4 overflow-hidden bg-marino py-24 text-hueso sm:py-32"
-  aria-labelledby="contacto-titulo"
->
-  <!-- Halo magenta: degradado radial acotado, sin filtros. -->
-  <div
-    class="absolute inset-0 -z-10 bg-[radial-gradient(60%_60%_at_50%_45%,rgb(230_25_122/0.38),transparent_70%)]"
-    aria-hidden="true"
-  >
-  </div>
-
-  <div class="contenedor">
-    <div class="mx-auto max-w-2xl text-center" data-cta-final>
-      <h2
-        id="contacto-titulo"
-        class="text-[length:clamp(2.75rem,11vw,5.5rem)] leading-none font-extrabold tracking-[-0.03em]"
-      >
-        ¿Empezamos?
-      </h2>
-      <p class="mx-auto mt-5 max-w-lg text-lg text-hueso/85 sm:text-xl">
-        Escríbeme y te digo qué curso te conviene y cómo entrar al siguiente ciclo.
-      </p>
-
-      {
-        conFormulario ? (
-          <form
-            class="mx-auto mt-8 grid max-w-md gap-3 text-left"
-            data-form-wa
-            data-numero={WHATSAPP_NUMERO}
-            action={`https://wa.me/${WHATSAPP_NUMERO}`}
-            method="get"
-          >
-            <label class="grid gap-1.5">
-              <span class="font-display text-sm font-bold text-hueso/80">Tu nombre</span>
-              <input class="campo" name="nombre" type="text" autocomplete="name" required placeholder="Ej. Valeria" />
-            </label>
-            <label class="grid gap-1.5">
-              <span class="font-display text-sm font-bold text-hueso/80">Tu celular</span>
-              <input
-                class="campo"
-                name="celular"
-                type="tel"
-                inputmode="tel"
-                autocomplete="tel"
-                required
-                placeholder="Ej. 987 654 321"
-              />
-            </label>
-            <button type="submit" class="boton boton-primario boton-grande mt-2 w-full">
-              <Icon nombre="whatsapp" class="h-6 w-6" />
-              <span>Ir a WhatsApp</span>
-            </button>
-            <p class="text-center text-xs text-hueso/60">
-              Se abre WhatsApp con tus datos en el mensaje. No se guarda nada en la página.
-              <TodoChip label="CTA con formulario" class="ml-1" />
-            </p>
-          </form>
-        ) : (
-          <div class="mt-8">
-            <BotonWhatsApp mensaje={site.mensajes.general} grande class="w-full sm:w-auto" />
-          </div>
-        )
-      }
-
-      <p class="mt-5 text-hueso/75">
-        o llama al <a
-          href={`tel:${WHATSAPP_TEL}`}
-          class="font-display font-bold text-hueso underline decoration-dorado decoration-2 underline-offset-4"
-        >
-          {WHATSAPP_VISIBLE}
-        </a>
-      </p>
+<section class="relative isolate mt-24 overflow-hidden lg:mt-36" aria-labelledby="cierre-titulo">
+  <div class="resplandor [mask-image:none]" aria-hidden="true"></div>
+  <div class="contenedor relative flex flex-col items-center py-24 text-center lg:py-36" data-reveal-grupo>
+    <p class="cursiva m-0 text-[clamp(2.25rem,7vw,3.5rem)] leading-none text-tinta-2" data-anim>Tú puedes,</p>
+    <h2 id="cierre-titulo" class="titulo m-0 mt-2 text-[clamp(3.5rem,3rem+5vw,7rem)]" data-anim>yo te ayudo</h2>
+    <p class="mt-6 mb-0 max-w-[26rem] text-[1.0625rem] leading-snug text-tinta-2" data-anim>
+      Escríbeme y te cuento cómo empezar desde cero. Yo misma respondo.
+    </p>
+    <div class="mt-8" data-anim>
+      <BotonWhatsApp mensaje={site.mensajes.general} grande />
     </div>
+    <a href={`tel:${WHATSAPP_TEL}`} class="enlace mt-6 text-[0.9375rem]" data-anim>
+      <Icon nombre="telefono" class="h-4 w-4" /> {WHATSAPP_VISIBLE}
+    </a>
   </div>
 </section>
-
-<script>
-  // Solo actúa si el formulario existe (site.ctaModo === 'formulario').
-  const form = document.querySelector<HTMLFormElement>('[data-form-wa]');
-  form?.addEventListener('submit', (evento) => {
-    evento.preventDefault();
-    const datos = new FormData(form);
-    const nombre = String(datos.get('nombre') ?? '').trim();
-    const celular = String(datos.get('celular') ?? '').trim();
-    const texto = `Hola Miss Karla, soy ${nombre} (${celular}) y quiero información sobre tus clases de matemática.`;
-    const url = `https://wa.me/${form.dataset.numero}?text=${encodeURIComponent(texto)}`;
-    window.open(url, '_blank', 'noopener');
-  });
-</script>

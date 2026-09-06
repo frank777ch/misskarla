@@ -1,0 +1,61 @@
+---
+/** "Cómo enseño" (= Turning my vision): texto y cifras a la izquierda, foto a la derecha. */
+import VideoTikTok from './VideoTikTok.astro';
+import TodoChip from './TodoChip.astro';
+import Icon from './icons/Icon.astro';
+import { site } from '../content/site';
+
+const { comoEnseno } = site;
+const anios = site.aniosEnsenando;
+const { tiktok } = site.redes;
+---
+
+<section id="como-enseno" class="contenedor scroll-mt-6 pt-20 pb-6 lg:pt-32 lg:pb-10" aria-labelledby="como-enseno-titulo">
+  <h2 id="como-enseno-titulo" class="titulo m-0 text-center" data-anim data-reveal>Cómo enseño</h2>
+
+  <div class="mt-12 grid grid-cols-1 items-center gap-10 lg:mt-16 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14" data-reveal-grupo>
+    <div data-anim>
+      <p class="m-0 max-w-[26rem] text-[1.375rem] leading-snug font-semibold tracking-[-0.01em] lg:text-[1.625rem]">{comoEnseno.titulo}</p>
+      <p class="mt-4 mb-0 max-w-[28rem] text-[0.9375rem] leading-relaxed text-tinta-2">{comoEnseno.texto}</p>
+
+      <dl class="m-0 mt-10 grid grid-cols-2 gap-8">
+        <div>
+          <dt class="sr-only">Seguidores en TikTok</dt>
+          <dd class="m-0">
+            <a href={tiktok.url} target="_blank" rel="noopener" class="no-underline text-tinta">
+              <span class="flex items-center gap-2 font-titular text-[2.75rem] leading-none lg:text-[3.25rem]">
+                {tiktok.seguidoresTexto}<Icon nombre="tiktok" class="h-6 w-6" />
+              </span>
+              <span class="mt-2 block text-[0.8125rem] text-tinta-2">me siguen en TikTok</span>
+            </a>
+          </dd>
+        </div>
+        <div>
+          <dt class="sr-only">Años enseñando</dt>
+          <dd class="m-0">
+            <span class="block font-titular text-[2.75rem] leading-none lg:text-[3.25rem]">
+              {anios ?? <span class="text-arena">?</span>}
+            </span>
+            <span class="mt-2 block text-[0.8125rem] text-tinta-2">
+              años enseñando {!anios && <TodoChip label="años" />}
+            </span>
+          </dd>
+        </div>
+      </dl>
+
+      <p class="mt-10 mb-0 max-w-[28rem] border-t border-linea pt-5 text-[0.9375rem] leading-relaxed text-tinta-2">{comoEnseno.padres}</p>
+    </div>
+
+    <!-- El video vertical vive dentro de una tarjeta con el resplandor cálido: llena la
+         columna como la foto de la referencia y se ve igual de bien en celular. -->
+    <div class="relative isolate flex aspect-[4/5] items-center justify-center overflow-hidden rounded-[1.25rem] bg-arena/60 sm:aspect-[4/3]" data-anim>
+      <div class="resplandor [mask-image:none]" aria-hidden="true"></div>
+      <VideoTikTok
+        nombre={comoEnseno.video.nombre}
+        url={`${tiktok.url}/video/${comoEnseno.video.id}`}
+        titulo={comoEnseno.video.titulo}
+        class="relative h-[86%] w-auto shadow-tarjeta"
+      />
+    </div>
+  </div>
+</section>

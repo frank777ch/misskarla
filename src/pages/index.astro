@@ -1,21 +1,25 @@
 ---
 import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
 import Cursos from '../components/Cursos.astro';
+import TeAyudoCon from '../components/TeAyudoCon.astro';
+import ComoEnseno from '../components/ComoEnseno.astro';
 import ComoFunciona from '../components/ComoFunciona.astro';
-import PruebaSocial from '../components/PruebaSocial.astro';
-import Horarios from '../components/Horarios.astro';
+import EnVivo from '../components/EnVivo.astro';
 import CtaFinal from '../components/CtaFinal.astro';
 import Footer from '../components/Footer.astro';
 ---
 
 <Base>
+  <Nav />
   <Hero />
   <main id="contenido">
     <Cursos />
+    <TeAyudoCon />
+    <ComoEnseno />
     <ComoFunciona />
-    <PruebaSocial />
-    <Horarios />
+    <EnVivo />
     <CtaFinal />
   </main>
   <Footer />

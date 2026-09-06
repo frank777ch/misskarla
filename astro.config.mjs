@@ -7,6 +7,7 @@ export default defineConfig({
   // TODO: dominio final (por ahora Cloudflare Pages).
   site: 'https://misskarla.pages.dev',
   output: 'static',
+  devToolbar: { enabled: false },
   trailingSlash: 'never',
   vite: {
     plugins: [tailwindcss()],

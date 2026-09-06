@@ -1,146 +1,48 @@
 ---
+/** "Mis cursos" (= Recent projects): tarjetas grandes con foto, dos por fila. */
+import FotoEjemplo from './FotoEjemplo.astro';
 import Icon from './icons/Icon.astro';
-import BotonWhatsApp from './BotonWhatsApp.astro';
 import TodoChip from './TodoChip.astro';
 import { site } from '../content/site';
 import { enlaceWhatsApp } from '../lib/whatsapp';
-
-const destacado = site.cursos.find((c) => c.destacado)!;
-const otros = site.cursos.filter((c) => !c.destacado);
-
-const fondos = {
-  magenta: 'bg-magenta text-hueso',
-  turquesa: 'bg-turquesa text-marino-oscuro',
-  dorado: 'bg-dorado text-marino-oscuro',
-  rosa: 'bg-rosa text-marino-oscuro',
-} as const;
 ---
 
-<section id="cursos" class="scroll-mt-4 bg-hueso py-20 text-marino sm:py-28" aria-labelledby="cursos-titulo">
-  <div class="contenedor">
-    <div class="max-w-2xl" data-reveal>
-      <h2 id="cursos-titulo" class="text-[length:clamp(2rem,6vw,3.25rem)] leading-[1.02] font-extrabold tracking-[-0.02em]">
-        Elige por dónde empezar
-      </h2>
-      <p class="mt-4 max-w-prose text-lg text-marino/75">
-        Todos los cursos son virtuales, con clases en vivo, grabaciones y fichas en PDF. ¿No sabes cuál te toca?
-        Escríbeme y lo vemos juntos.
-      </p>
-    </div>
+<section id="cursos" class="contenedor scroll-mt-6 pt-16 pb-6 lg:pt-28 lg:pb-10" aria-labelledby="cursos-titulo">
+  <h2 id="cursos-titulo" class="titulo m-0 text-center" data-anim data-reveal>Mis cursos</h2>
 
-    <div class="mt-10 grid gap-5 lg:gap-6">
-      <!-- Curso principal: tarjeta ancha, dos columnas en escritorio -->
-      <article
-        id={destacado.id}
-        class="scroll-mt-6 rounded-3xl bg-marino p-7 text-hueso shadow-tarjeta sm:p-9 lg:grid lg:grid-cols-[1.15fr_1fr] lg:gap-12 lg:p-11"
-        data-reveal
-      >
-        <div class="flex flex-col">
-          <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
-            <h3 class="text-3xl font-extrabold tracking-[-0.02em] sm:text-4xl">{destacado.nombre}</h3>
-            <span class="inline-flex items-center rounded-full bg-rosa/15 px-3 py-1 font-display text-xs font-bold tracking-wide text-rosa uppercase">
-              Curso principal
-            </span>
-          </div>
-          <p class="mt-2 font-display text-sm font-bold text-dorado">{destacado.para}</p>
-          <p class="mt-4 max-w-prose text-lg text-hueso/80">{destacado.detalle}</p>
-          <!-- Sello "100% garantizado": la promesa que Karla imprime en sus flyers. -->
-          <svg
-            viewBox="0 0 100 100"
-            class="mt-6 h-24 w-24 -rotate-6 lg:mt-auto lg:h-28 lg:w-28"
-            role="img"
-            aria-label="100% garantizado"
-          >
-            <circle cx="50" cy="50" r="46.5" fill="none" stroke="var(--color-dorado)" stroke-width="4" stroke-dasharray="3.2 3.2" />
-            <circle cx="50" cy="50" r="43" fill="var(--color-dorado)" />
-            <circle cx="50" cy="50" r="37" fill="none" stroke="var(--color-marino-oscuro)" stroke-width="1.5" stroke-dasharray="2.5 2.5" />
-            <text
-              x="50"
-              y="49"
-              text-anchor="middle"
-              font-family="var(--font-display)"
-              font-weight="800"
-              font-size="24"
-              fill="var(--color-marino-oscuro)">100%</text>
-            <text
-              x="50"
-              y="63"
-              text-anchor="middle"
-              font-family="var(--font-display)"
-              font-weight="800"
-              font-size="8"
-              letter-spacing="1"
-              fill="var(--color-marino-oscuro)">GARANTIZADO</text>
-          </svg>
-        </div>
-        <div class="mt-6 flex flex-col lg:mt-0">
-          <ul class="space-y-3">
-            {
-              destacado.incluye.map((item) => (
-                <li class="flex items-start gap-3">
-                  <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-turquesa/20 text-turquesa">
-                    <Icon nombre="check" class="h-3.5 w-3.5" />
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))
-            }
-          </ul>
-          <div class="mt-8 flex flex-col gap-4 border-t border-hueso/15 pt-6 lg:mt-auto">
-            <p class="font-display font-bold">
-              {destacado.precio ?? 'Precio: consúltalo por WhatsApp'}
-              <TodoChip label="precio" class="ml-1" />
-            </p>
-            <BotonWhatsApp mensaje={destacado.mensaje} texto="Consultar por WhatsApp" class="w-full sm:w-auto" />
-          </div>
-        </div>
-      </article>
-
-      <!-- Otros cursos: tres compactas -->
-      <div class="grid gap-5 lg:grid-cols-3 lg:gap-6">
-        {
-          otros.map((curso) => (
-            <article
-              id={curso.id}
-              class="scroll-mt-6 rounded-3xl bg-marino/5 p-6 ring-1 ring-marino/10 sm:p-7"
-              data-reveal-x
-            >
-              <div class="flex items-start gap-4 lg:flex-col lg:gap-5">
-                <span class:list={['inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl', fondos[curso.color]]}>
-                  <Icon nombre={curso.icono} class="h-6 w-6" />
-                </span>
-                <div class="min-w-0 flex-1">
-                  <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
-                    <h3 class="text-xl font-extrabold tracking-[-0.01em] sm:text-2xl">{curso.nombre}</h3>
-                    {curso.chip && (
-                      <span class="rounded-full bg-marino px-2.5 py-0.5 font-display text-[11px] font-bold text-hueso">
-                        {curso.chip}
-                      </span>
-                    )}
-                  </div>
-                  <p class="mt-1 font-display text-sm font-bold text-marino/70">{curso.para}</p>
-                  <p class="mt-3 text-marino/80">{curso.detalle}</p>
-                  <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
-                    <p class="text-sm font-semibold text-marino/70">
-                      {curso.precio ?? 'Precio por WhatsApp'}
-                      <TodoChip label="precio" class="ml-1" />
-                    </p>
-                    <a
-                      href={enlaceWhatsApp(curso.mensaje)}
-                      target="_blank"
-                      rel="noopener"
-                      class="inline-flex min-h-11 items-center gap-2 font-display font-bold text-marino underline decoration-magenta/40 decoration-2 underline-offset-4 transition-colors hover:decoration-magenta"
-                    >
-                      Consultar por WhatsApp
-                      <Icon nombre="flecha" class="h-4 w-4 text-magenta" />
-                    </a>
-                  </div>
-                </div>
+  <ul class="m-0 mt-10 grid list-none grid-cols-1 gap-x-8 gap-y-12 p-0 md:grid-cols-2 lg:mt-14 lg:gap-y-16" data-reveal-grupo>
+    {
+      site.cursos.map((curso) => (
+        <li class="group" data-anim>
+          <a href={enlaceWhatsApp(curso.mensaje)} target="_blank" rel="noopener" class="block no-underline text-tinta">
+            <FotoEjemplo src={curso.foto} alt={curso.fotoAlt} ratio="4/3" class="transition-transform duration-500 ease-[var(--ease-salida)] group-hover:-translate-y-1" />
+            <div class="mt-5 flex items-start justify-between gap-6">
+              <div class="min-w-0">
+                <h3 class="m-0 text-[1.375rem] leading-tight font-semibold tracking-[-0.01em]">{curso.nombre}</h3>
+                <p class="mt-1 mb-0 text-[0.9375rem] text-tinta-2">{curso.para}</p>
               </div>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </div>
+              <span class="mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-linea text-tinta transition-colors group-hover:bg-tinta group-hover:text-fondo" aria-hidden="true">
+                <Icon nombre="flecha" class="h-5 w-5" />
+              </span>
+            </div>
+            <p class="mt-3 mb-0 max-w-[36rem] text-[0.9375rem] leading-relaxed text-tinta-2">{curso.detalle}</p>
+            <ul class="m-0 mt-4 flex list-none flex-wrap gap-2 p-0" aria-label="Incluye">
+              {curso.incluye.map((i) => (
+                <li class="rounded-full border border-linea px-3 py-1 text-[0.8125rem] text-tinta">{i}</li>
+              ))}
+            </ul>
+            <p class="mt-4 mb-0 text-[0.9375rem]">
+              {curso.precio ? (
+                <span class="font-semibold">{curso.precio}</span>
+              ) : (
+                <span class="text-tinta-2">
+                  Precio: consúltalo por WhatsApp <TodoChip label="precio" />
+                </span>
+              )}
+            </p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </section>

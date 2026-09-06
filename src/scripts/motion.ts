@@ -1,7 +1,13 @@
 /**
- * Motion de la landing. Un solo momento autorado (la entrada del hero con el
- * subrayado de plumón) y apoyos discretos al hacer scroll. Todo se apaga con
- * prefers-reduced-motion; el contenido siempre es visible sin JS.
+ * Motion de la landing.
+ *  1. Un solo momento autorado: la entrada del hero (~1 s): el resplandor
+ *     florece, aparece el saludo, la foto sube con blur, el nombre entra por
+ *     líneas y luego píldora, rol, párrafo y botón. Sin preloader.
+ *  2. En escritorio, el resplandor sigue suavemente al puntero.
+ *  3. Reveals por scroll, una sola vez, con el mismo easing.
+ *  4. El botón flotante se esconde mientras el botón del hero está en pantalla.
+ * Todo se apaga con prefers-reduced-motion (Base.astro no añade `js` al html):
+ * el contenido siempre es visible sin JS.
  */
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -9,97 +15,92 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const SALIDA = 'expo.out';
+const raiz = document.documentElement;
 
-const mm = gsap.matchMedia();
+/* Botón flotante: oculto mientras el botón del hero se ve. */
+const fab = document.querySelector<HTMLElement>('[data-fab]');
+const ctasHero = document.querySelectorAll<HTMLElement>('[data-cta-hero]');
+if (fab && ctasHero.length && 'IntersectionObserver' in window) {
+  const visibles = new Set<Element>();
+  const io = new IntersectionObserver(
+    (entradas) => {
+      for (const e of entradas) e.isIntersecting ? visibles.add(e.target) : visibles.delete(e.target);
+      fab.classList.toggle('fab-oculto', visibles.size > 0);
+    },
+    { threshold: 0.4 },
+  );
+  ctasHero.forEach((el) => io.observe(el));
+}
 
-mm.add(
-  {
-    conMotion: '(prefers-reduced-motion: no-preference)',
-    escritorio: '(min-width: 64rem)',
-  },
-  (contexto) => {
-    const { conMotion, escritorio } = contexto.conditions as { conMotion: boolean; escritorio: boolean };
-    if (!conMotion) return;
+/* Videos de la galería: se reproducen mudos solo mientras están en pantalla. No arrancan
+   con "reducir movimiento" ni con ahorro de datos: queda el póster y el toque abre TikTok. */
+const videos = document.querySelectorAll<HTMLVideoElement>('[data-video-tiktok]');
+const ahorroDatos = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true;
+if (videos.length && raiz.classList.contains('js') && !ahorroDatos && 'IntersectionObserver' in window) {
+  const io = new IntersectionObserver(
+    (entradas) => {
+      for (const e of entradas) {
+        const v = e.target as HTMLVideoElement;
+        if (e.isIntersecting) v.play().catch(() => {});
+        else v.pause();
+      }
+    },
+    { threshold: 0.5 },
+  );
+  videos.forEach((v) => io.observe(v));
+}
 
-    // 1. Entrada del hero: foto, fila superior, nombre, H1, plumón, frase, botones.
-    const hero = gsap.timeline({ defaults: { ease: SALIDA, duration: 0.9 } });
-    hero
-      .from('[data-hero-foto]', { scale: 1.06, duration: 1.8 }, 0)
-      .from('[data-hero-top] > *', { y: -10, opacity: 0, stagger: 0.08, duration: 0.6 }, 0.15)
-      .from('[data-hero-nombre]', { y: 14, opacity: 0 }, 0.25)
-      .from('[data-hero-linea]', { y: 28, opacity: 0, stagger: 0.12 }, 0.35)
-      .from('[data-plumon]', { strokeDashoffset: 1, duration: 0.7, ease: 'power2.inOut' }, 0.8)
-      .from('[data-hero-sub]', { y: 16, opacity: 0 }, 0.75)
-      .from('[data-hero-ctas] > *', { y: 16, opacity: 0, stagger: 0.1 }, 0.9);
+if (raiz.classList.contains('js')) {
+  /* Las dos escenas del hero (móvil y escritorio) se animan a la vez: la que está
+     en display:none no se ve, pero queda revelada si la ventana cambia de tamaño. */
+  const visible = (sel: string) => gsap.utils.toArray<HTMLElement>(sel);
 
-    // 2. Bloques que suben al entrar (una sola vez).
-    gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {
-      gsap.from(el, {
-        y: 28,
-        opacity: 0,
-        duration: 0.9,
-        ease: SALIDA,
-        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
-      });
+  // 1. Entrada del hero.
+  const hero = gsap.timeline({ defaults: { ease: SALIDA } });
+  hero
+    .fromTo('[data-hero-resplandor]', { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 1.4, ease: 'power2.out' }, 0)
+    .fromTo(visible('[data-hero-saludo] > *'), { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.12 }, 0.1)
+    .fromTo(
+      visible('[data-hero-foto]'),
+      { autoAlpha: 0, y: 48, filter: 'blur(14px)' },
+      { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 1.1, ease: 'power3.out' },
+      0.15,
+    )
+    .fromTo(visible('[data-hero-linea]'), { yPercent: 110, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.8, stagger: 0.09 }, 0.5)
+    .fromTo(visible('[data-hero-item]'), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 }, 0.75);
+
+  // 2. El resplandor sigue al puntero (solo punteros finos).
+  const resplandor = document.querySelector<HTMLElement>('[data-hero-resplandor]');
+  const cabecera = document.querySelector<HTMLElement>('#inicio');
+  if (resplandor && cabecera && matchMedia('(pointer: fine)').matches) {
+    const xTo = gsap.quickTo(resplandor, 'xPercent', { duration: 1.4, ease: 'power2.out' });
+    const yTo = gsap.quickTo(resplandor, 'yPercent', { duration: 1.4, ease: 'power2.out' });
+    cabecera.addEventListener('pointermove', (e) => {
+      const r = cabecera.getBoundingClientRect();
+      xTo(((e.clientX - r.left) / r.width - 0.5) * 2.5);
+      yTo(((e.clientY - r.top) / r.height - 0.5) * 2);
     });
-
-    // 3. Cursos compactos: entran desde la derecha en escalera.
-    const compactos = gsap.utils.toArray<HTMLElement>('[data-reveal-x]');
-    if (compactos.length) {
-      gsap.from(compactos, {
-        x: 32,
-        opacity: 0,
-        duration: 0.8,
-        ease: SALIDA,
-        stagger: 0.1,
-        scrollTrigger: { trigger: compactos[0], start: 'top 85%', once: true },
-      });
-    }
-
-    // 4. Pasos: la línea dorada se dibuja con el scroll y cada paso aparece en orden.
-    const pasos = document.querySelector('[data-pasos]');
-    const segmentos = gsap.utils.toArray<HTMLElement>('[data-linea-pasos]');
-    if (pasos && segmentos.length) {
-      gsap.from(segmentos, {
-        ...(escritorio ? { scaleX: 0 } : { scaleY: 0 }),
-        ease: 'none',
-        stagger: 0.6,
-        scrollTrigger: { trigger: pasos, start: 'top 75%', end: 'bottom 65%', scrub: 0.5 },
-      });
-      gsap.from('[data-paso]', {
-        y: 20,
-        opacity: 0,
-        duration: 0.8,
-        ease: SALIDA,
-        stagger: 0.18,
-        scrollTrigger: { trigger: pasos, start: 'top 80%', once: true },
-      });
-    }
-
-    // 5. Contador de seguidores.
-    const contador = document.querySelector<HTMLElement>('[data-count]');
-    if (contador) {
-      const meta = parseFloat(contador.dataset.count ?? '0');
-      const estado = { valor: 0 };
-      gsap.to(estado, {
-        valor: meta,
-        duration: 1.6,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: contador, start: 'top 85%', once: true },
-        onUpdate: () => {
-          contador.textContent = estado.valor.toFixed(1);
-        },
-      });
-    }
-
-    // 6. Cierre: título, frase y botón suben en cascada.
-    gsap.from('[data-cta-final] > *', {
-      y: 24,
-      opacity: 0,
-      duration: 0.9,
-      ease: SALIDA,
-      stagger: 0.1,
-      scrollTrigger: { trigger: '[data-cta-final]', start: 'top 80%', once: true },
+    cabecera.addEventListener('pointerleave', () => {
+      xTo(0);
+      yTo(0);
     });
-  },
-);
+  }
+
+  // 3. Reveals por scroll.
+  gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {
+    gsap.fromTo(
+      el,
+      { autoAlpha: 0, y: 28 },
+      { autoAlpha: 1, y: 0, duration: 1, ease: SALIDA, scrollTrigger: { trigger: el, start: 'top 88%', once: true } },
+    );
+  });
+  gsap.utils.toArray<HTMLElement>('[data-reveal-grupo]').forEach((grupo) => {
+    const hijos = grupo.querySelectorAll<HTMLElement>('[data-anim]');
+    if (!hijos.length) return;
+    gsap.fromTo(
+      hijos,
+      { autoAlpha: 0, y: 24 },
+      { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.1, ease: SALIDA, scrollTrigger: { trigger: grupo, start: 'top 85%', once: true } },
+    );
+  });
+}

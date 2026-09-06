@@ -1,37 +1,41 @@
 @import "tailwindcss";
 
-/* Tokens: la paleta de context/brand.md manda. Se borra la paleta por defecto
-   de Tailwind para que no exista ningún color fuera de la marca. */
+/* Tokens: la paleta cálida de context/brand.md manda. Se borra la paleta por
+   defecto de Tailwind para que no exista ningún color fuera de la marca. */
 @theme {
   --color-*: initial;
   --color-transparent: transparent;
   --color-current: currentColor;
   --color-white: #ffffff;
-  --color-black: #000000;
 
-  --color-marino: #1a2350;
-  --color-marino-oscuro: #131a3a;
-  --color-magenta: #e6197a;
-  --color-rosa: #ff4d8d;
-  --color-dorado: #ffd23f;
-  --color-turquesa: #16b8a6;
-  --color-whatsapp: #25d366;
-  --color-hueso: #f7f5ef;
+  --color-fondo: #fdfbf7;
+  --color-tinta: #111111;
+  --color-tinta-2: #5c5750;
+  --color-tinta-3: #77716a;
+  --color-linea: rgb(17 17 17 / 0.12);
+  --color-arena: #efe9dd;
+  --color-sol: #ffe9a8;
+  --color-durazno: #ffc9a3;
+  --color-naranja: #ff7a2f;
+  --color-verdeazul: #0f8b8d;
+  /* El acento de la página (punto de la píldora, punto del logo, comillas). Frank eligió el verde azulado el 2026-09-05. */
+  --color-acento: var(--color-verdeazul);
 
-  --font-display: "Montserrat Variable", "Montserrat", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Nunito Sans Variable", "Nunito Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-cursiva: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-titular: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --font-body: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
 
   --ease-salida: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --shadow-tarjeta: 0 14px 34px -16px rgb(26 35 80 / 0.32), 0 2px 6px -2px rgb(26 35 80 / 0.12);
-  --shadow-boton: 0 12px 26px -12px rgb(37 211 102 / 0.6), 0 2px 4px -1px rgb(19 26 58 / 0.25);
-  --shadow-flotante: 0 16px 32px -14px rgb(19 26 58 / 0.55), 0 3px 8px -2px rgb(19 26 58 / 0.3);
+  --shadow-pildora: 0 1px 2px rgb(17 17 17 / 0.06), 0 10px 24px -14px rgb(17 17 17 / 0.25);
+  --shadow-flotante: 0 18px 36px -16px rgb(17 17 17 / 0.5), 0 3px 8px -3px rgb(17 17 17 / 0.3);
+  --shadow-tarjeta: 0 2px 4px rgb(17 17 17 / 0.04), 0 24px 48px -28px rgb(17 17 17 / 0.3);
 
   --animate-pulso: pulso 1.8s var(--ease-salida) infinite;
   @keyframes pulso {
-    0% { transform: scale(1); opacity: 0.85; }
-    70% { transform: scale(2.4); opacity: 0; }
-    100% { transform: scale(2.4); opacity: 0; }
+    0% { transform: scale(1); opacity: 0.8; }
+    70% { transform: scale(2.6); opacity: 0; }
+    100% { transform: scale(2.6); opacity: 0; }
   }
 }
 
@@ -39,113 +43,187 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
-    /* Los reveals de GSAP arrancan desplazados (x: 32px); sin esto desbordan el
-       ancho en móvil y el navegador reescala la página. `clip` no crea scroll
-       ni rompe position: fixed. */
     overflow-x: clip;
     scrollbar-width: thin;
-    scrollbar-color: color-mix(in oklab, var(--color-hueso) 28%, transparent) var(--color-marino-oscuro);
+    scrollbar-color: rgb(17 17 17 / 0.3) var(--color-fondo);
+    background: var(--color-fondo);
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
   }
   body {
-    background: var(--color-marino);
-    color: var(--color-hueso);
+    background: var(--color-fondo);
+    color: var(--color-tinta);
     font-family: var(--font-body);
-    font-weight: 500;
+    font-weight: 450;
+    font-size: 1rem;
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    caret-color: var(--color-acento);
+    font-feature-settings: "cv11", "ss01";
   }
-  h1, h2, h3 {
-    font-family: var(--font-display);
-    text-wrap: balance;
-  }
+  h1, h2, h3 { text-wrap: balance; }
   p, li { text-wrap: pretty; }
   ::selection {
-    background: var(--color-dorado);
-    color: var(--color-marino-oscuro);
+    background: var(--color-durazno);
+    color: var(--color-tinta);
   }
   :focus-visible {
-    outline: 3px solid var(--color-dorado);
+    outline: 3px solid var(--color-acento);
     outline-offset: 3px;
     border-radius: 0.5rem;
   }
   a { text-underline-offset: 0.2em; }
   input, button, select, textarea { font: inherit; }
-  strong { font-weight: 800; }
+  strong { font-weight: 600; }
+  img { display: block; }
+
+  /* Estados iniciales del motion. Solo cuando hay JS y el usuario acepta
+     movimiento (Base.astro añade `js` al html); sin eso todo es visible. */
+  html.js [data-anim] { visibility: hidden; }
 }
 
+/* Contenedor de la página: el ancho de la referencia. */
 @utility contenedor {
   margin-inline: auto;
   width: 100%;
-  max-width: 72rem;
+  max-width: 85rem;
   padding-inline: 1.25rem;
   @media (width >= 40rem) { padding-inline: 2rem; }
+  @media (width >= 64rem) { padding-inline: 2.5rem; }
 }
 
-/* Botones: píldoras. Un solo tamaño base, variante grande para el cierre. */
+/* Titular de sección: Anton, mayúsculas, centrado. */
+@utility titulo {
+  font-family: var(--font-titular);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  line-height: 0.95;
+  font-size: clamp(2.5rem, 2rem + 2.6vw, 4rem);
+  color: var(--color-tinta);
+}
+
+/* La voz cursiva: saludo y logo. */
+@utility cursiva {
+  font-family: var(--font-cursiva);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Botones: píldoras negras. Único estilo de botón en toda la página. */
 @utility boton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.625rem;
+  gap: 0.6rem;
   min-height: 3rem;
-  padding: 0.8rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 9999px;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1rem;
+  background: var(--color-tinta);
+  color: var(--color-fondo);
+  font-weight: 500;
+  font-size: 0.9375rem;
   line-height: 1.2;
   white-space: nowrap;
   text-decoration: none;
-  /* El hover usa `translate` (no `transform`) para no pelear con GSAP, que anima `transform`. */
-  transition: translate 0.2s var(--ease-salida), box-shadow 0.2s var(--ease-salida), background-color 0.2s var(--ease-salida), border-color 0.2s var(--ease-salida);
-  &:hover { translate: 0 -2px; }
+  transition: translate 0.2s var(--ease-salida), box-shadow 0.2s var(--ease-salida), background-color 0.2s var(--ease-salida);
+  &:hover { translate: 0 -2px; box-shadow: var(--shadow-flotante); background: #232323; }
   &:active { translate: 0 0; transition-duration: 0.08s; }
   @media (prefers-reduced-motion: reduce) { &:hover { translate: none; } }
-}
-@utility boton-primario {
-  background: var(--color-whatsapp);
-  color: var(--color-marino-oscuro);
-  box-shadow: var(--shadow-boton);
-  &:hover { background: color-mix(in oklab, var(--color-whatsapp) 88%, white); }
 }
 @utility boton-grande {
   min-height: 3.75rem;
   padding: 1rem 2.25rem;
-  font-size: 1.125rem;
-}
-@utility boton-outline-oscuro {
-  border: 2px solid color-mix(in oklab, var(--color-hueso) 45%, transparent);
-  color: var(--color-hueso);
-  &:hover { border-color: var(--color-hueso); background: color-mix(in oklab, var(--color-hueso) 10%, transparent); }
-}
-@utility boton-outline-claro {
-  border: 2px solid color-mix(in oklab, var(--color-marino) 30%, transparent);
-  color: var(--color-marino);
-  &:hover { border-color: var(--color-marino); background: color-mix(in oklab, var(--color-marino) 6%, transparent); }
+  font-size: 1.0625rem;
 }
 
-/* Subrayado de plumón: GSAP lo dibuja; sin JS se ve completo. */
-@utility plumon {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
+/* Píldora de estado: blanca, con punto naranja que late. */
+@utility pildora {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.1rem 0.6rem 0.8rem;
+  border-radius: 9999px;
+  background: white;
+  color: var(--color-tinta);
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-pildora);
+  white-space: nowrap;
 }
 
-/* Campos del formulario (solo si site.ctaModo === 'formulario'). */
-@utility campo {
+/* Enlace de texto con flecha. */
+@utility enlace {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+  color: var(--color-tinta);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgb(17 17 17 / 0.3);
+  text-underline-offset: 0.3em;
+  transition: text-decoration-color 0.2s var(--ease-salida), gap 0.2s var(--ease-salida);
+  &:hover { text-decoration-color: var(--color-tinta); gap: 0.65rem; }
+}
+
+/* Foto con esquinas de la referencia. */
+@utility foto {
+  border-radius: 1.25rem;
+  object-fit: cover;
   width: 100%;
-  min-height: 3.25rem;
-  padding: 0.75rem 1.1rem;
-  border-radius: 1rem;
-  border: 2px solid color-mix(in oklab, var(--color-hueso) 25%, transparent);
-  background: color-mix(in oklab, var(--color-marino-oscuro) 65%, transparent);
-  color: var(--color-hueso);
-  transition: border-color 0.2s var(--ease-salida);
-  &::placeholder { color: color-mix(in oklab, var(--color-hueso) 45%, transparent); }
-  &:focus { border-color: var(--color-dorado); outline: none; }
+  height: 100%;
+  background: var(--color-arena);
+}
+
+/* El resplandor cálido: amarillo arriba, durazno abajo, se funde en el fondo. */
+@utility resplandor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 42% 38% at 50% 44%, var(--color-sol) 0%, rgb(255 233 168 / 0.55) 45%, transparent 100%),
+    radial-gradient(ellipse 58% 42% at 50% 72%, var(--color-durazno) 0%, rgb(255 201 163 / 0.5) 50%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 78%, transparent 100%);
+}
+
+/* La foto del hero: se funde abajo en el fondo y sus bordes laterales (el
+   recorte del PNG corta las mangas) se desvanecen para que no haya línea recta. */
+.foto-hero {
+  --fundido: 80%;
+  --fundido-fin: 100%;
+  mask-image:
+    linear-gradient(to bottom, black var(--fundido), transparent var(--fundido-fin)),
+    linear-gradient(to right, transparent, black 14%, black 86%, transparent);
+  mask-composite: intersect;
+  -webkit-mask-image:
+    linear-gradient(to bottom, black var(--fundido), transparent var(--fundido-fin)),
+    linear-gradient(to right, transparent, black 14%, black 86%, transparent);
+  -webkit-mask-composite: source-in;
+}
+
+/* Fila tipo tabla (cómo funciona, horarios). */
+@utility fila {
+  display: grid;
+  gap: 0.5rem 1.5rem;
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--color-linea);
+  grid-template-columns: 1fr;
+  @media (width >= 48rem) {
+    grid-template-columns: 8rem minmax(0, 1fr) minmax(0, 1.3fr);
+    padding-block: 2rem;
+    gap: 2rem;
+  }
+}
+
+/* Botón flotante: se esconde mientras el botón del hero está en pantalla (motion.ts). */
+.fab {
+  transition: translate 0.25s var(--ease-salida), opacity 0.25s var(--ease-salida), box-shadow 0.2s var(--ease-salida);
+  &.fab-oculto { opacity: 0; translate: 0 1.5rem; pointer-events: none; }
+  @media (prefers-reduced-motion: reduce) { transition: none; }
 }
 
 .skip-link {
@@ -155,10 +233,9 @@
   z-index: 100;
   padding: 0.75rem 1.25rem;
   border-radius: 9999px;
-  background: var(--color-dorado);
-  color: var(--color-marino-oscuro);
-  font-family: var(--font-display);
-  font-weight: 700;
+  background: var(--color-tinta);
+  color: var(--color-fondo);
+  font-weight: 500;
   transition: top 0.2s var(--ease-salida);
 }
 .skip-link:focus { top: 1rem; }

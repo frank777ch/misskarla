@@ -1,48 +1,55 @@
 ---
+/** "Cómo funciona" (= Experience & skills): filas tipo tabla. Debajo, los horarios. */
+import TodoChip from './TodoChip.astro';
 import Icon from './icons/Icon.astro';
 import { site } from '../content/site';
+import { enlaceWhatsApp } from '../lib/whatsapp';
 ---
 
-<section
-  id="como-funciona"
-  class="scroll-mt-4 border-t border-marino/10 bg-hueso py-20 text-marino sm:py-28"
-  aria-labelledby="como-titulo"
->
-  <div class="contenedor grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-16">
-    <div data-reveal>
-      <h2 id="como-titulo" class="text-[length:clamp(2rem,6vw,3.25rem)] leading-[1.02] font-extrabold tracking-[-0.02em]">
-        Así de simple
-      </h2>
-      <p class="mt-4 text-lg text-marino/75">Sin trámites ni plataformas raras. Tres pasos y ya estás en clase.</p>
-      <p class="mt-6 rounded-2xl bg-marino/5 p-4 text-sm text-marino/80 ring-1 ring-marino/10">
-        <strong class="font-display text-marino">¿Eres mamá o papá?</strong> Escríbeme también: te explico cómo
-        funciona el ciclo, el pago y el grupo del curso.
-      </p>
-    </div>
+<section id="como-funciona" class="contenedor scroll-mt-6 pt-20 pb-6 lg:pt-32 lg:pb-10" aria-labelledby="como-funciona-titulo">
+  <h2 id="como-funciona-titulo" class="titulo m-0 text-center" data-anim data-reveal>Cómo funciona</h2>
 
-    <ol class="relative grid gap-9 lg:grid-cols-3 lg:gap-8" data-pasos>
-      {
-        site.pasos.map((paso, i) => (
-          <li class="relative pl-[4.5rem] lg:pl-0" data-paso>
-            {/* Segmento que une este paso con el siguiente: vertical en móvil, horizontal en escritorio. */}
-            {i < site.pasos.length - 1 && (
-              <span
-                class="absolute top-6 -bottom-9 left-6 w-0.5 origin-top bg-dorado lg:top-6 lg:-right-8 lg:bottom-auto lg:left-6 lg:h-0.5 lg:w-auto lg:origin-left"
-                data-linea-pasos
-                aria-hidden="true"
-              />
-            )}
-            <span class="absolute top-0 left-0 z-10 inline-flex h-12 w-12 items-center justify-center rounded-full bg-dorado font-display text-lg font-extrabold text-marino-oscuro ring-4 ring-hueso lg:static lg:mb-5 lg:flex">
-              {i + 1}
-            </span>
-            <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-marino text-turquesa">
-              <Icon nombre={paso.icono} class="h-6 w-6" />
-            </span>
-            <h3 class="mt-4 text-xl font-extrabold tracking-[-0.01em]">{paso.titulo}</h3>
-            <p class="mt-2 text-marino/80">{paso.texto}</p>
-          </li>
-        ))
-      }
-    </ol>
+  <ol class="m-0 mt-12 list-none border-b border-linea p-0 lg:mt-16" data-reveal-grupo>
+    {
+      site.pasos.map((paso) => (
+        <li class="fila" data-anim>
+          <span class="text-[0.8125rem] font-medium text-tinta-3">{paso.etiqueta}</span>
+          <h3 class="m-0 text-[1.125rem] leading-snug font-semibold">{paso.titulo}</h3>
+          <p class="m-0 text-[0.9375rem] leading-relaxed text-tinta-2">{paso.texto}</p>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div id="horarios" class="mt-16 scroll-mt-6 lg:mt-24" data-reveal-grupo>
+    <h3 class="m-0 text-[1.375rem] leading-tight font-semibold tracking-[-0.01em]" data-anim>Horarios del ciclo</h3>
+    {
+      site.horarios.length ? (
+        <ul class="m-0 mt-6 list-none border-b border-linea p-0">
+          {site.horarios.map((h) => (
+            <li class="fila" data-anim>
+              <span class="text-[0.8125rem] font-medium text-tinta-3">{h.nivel}</span>
+              <span class="text-[1.0625rem] font-semibold">{h.curso}</span>
+              <span class="text-[0.9375rem] text-tinta-2">
+                {h.dias} · {h.hora}
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="fila mt-6 border-b border-linea" data-anim>
+          <span class="text-[0.8125rem] font-medium text-tinta-3">Este ciclo</span>
+          <p class="m-0 text-[1.0625rem] leading-snug font-semibold">
+            Los horarios cambian cada ciclo <TodoChip label="horarios" />
+          </p>
+          <p class="m-0 text-[0.9375rem] leading-relaxed text-tinta-2">
+            Escríbeme y te paso los del ciclo actual al momento.{' '}
+            <a href={enlaceWhatsApp(site.mensajes.horarios)} target="_blank" rel="noopener" class="enlace">
+              Pedir horarios <Icon nombre="flecha" class="h-4 w-4" />
+            </a>
+          </p>
+        </div>
+      )
+    }
   </div>
 </section>

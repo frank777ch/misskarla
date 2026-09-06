@@ -1,0 +1,22 @@
+---
+/** "Te ayudo con" (= I can help you with): cuatro columnas numeradas. */
+import { site } from '../content/site';
+---
+
+<section id="te-ayudo" class="contenedor scroll-mt-6 pt-20 pb-6 lg:pt-32 lg:pb-10" aria-labelledby="te-ayudo-titulo">
+  <h2 id="te-ayudo-titulo" class="titulo m-0 text-center" data-anim data-reveal>Te ayudo con</h2>
+
+  <ol class="m-0 mt-12 grid list-none grid-cols-2 gap-x-6 gap-y-12 p-0 lg:mt-16 lg:grid-cols-4 lg:gap-x-10" data-reveal-grupo>
+    {
+      site.temas.map((tema, i) => (
+        <li class="relative border-l border-linea pl-5 lg:pl-6" data-anim>
+          <span class="block font-titular text-[3.25rem] leading-none text-arena lg:text-[4rem]" aria-hidden="true">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <h3 class="mt-6 mb-0 text-[1.0625rem] leading-snug font-semibold lg:mt-8 lg:text-[1.125rem]">{tema.nombre}</h3>
+          <p class="mt-2 mb-0 text-[0.875rem] leading-relaxed text-tinta-2">{tema.texto}</p>
+        </li>
+      ))
+    }
+  </ol>
+</section>

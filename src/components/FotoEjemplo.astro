@@ -1,0 +1,31 @@
+---
+/**
+ * Foto de ejemplo (Unsplash) con su marca de placeholder mientras
+ * site.mostrarPendientes sea true. Se reemplaza por fotos reales de Karla.
+ */
+import { site } from '../content/site';
+
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  /** Proporción del marco, ej. "4/3". */
+  ratio?: string;
+  loading?: 'lazy' | 'eager';
+}
+const { src, alt, class: className = '', ratio = '4/3', loading = 'lazy' } = Astro.props;
+---
+
+<figure class:list={['relative m-0 overflow-hidden rounded-[1.25rem] bg-arena', className]} style={`aspect-ratio:${ratio}`}>
+  <img src={src} alt={alt} loading={loading} decoding="async" class="foto absolute inset-0" />
+  {
+    site.mostrarPendientes && (
+      <figcaption
+        class="absolute top-3 left-3 rounded-md bg-tinta/80 px-2 py-1 text-[11px] font-medium tracking-wide text-fondo backdrop-blur-sm"
+        title="Foto de ejemplo (Unsplash). Reemplazar por una real."
+      >
+        foto de ejemplo
+      </figcaption>
+    )
+  }
+</figure>

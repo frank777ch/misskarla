@@ -33,19 +33,21 @@ Landing de conversión de una sola página para Karla Cornejo Flores, "Miss Karl
 - Todos los CTA llevan a WhatsApp con mensaje prellenado. Botón flotante de WhatsApp siempre visible en mobile.
 - Mobile-first: la mayoría del tráfico es celular.
 - Idioma: español de Perú (`lang="es-PE"`).
-- La foto del hero es un placeholder en `public/img/profe-placeholder.jpg`; no se reemplaza ni se genera otra. Frank pondrá la real con el mismo nombre (recorte sobre fondo plano, vertical ~3:4).
+- La foto del hero es `src/assets/foto/profe.png`, entregada por Frank el 2026-09-05 (recorte con fondo transparente, cabeza a cintura, 1600×2000 px, saco marino sobre blusa blanca). Se publica solo como `public/img/profe.webp` y `profe-avatar.webp`, generados por `npm run foto`. No se generan fotos nuevas; si el archivo falta, el hero muestra la silueta placeholder marcada como pendiente.
 - No copiar textos de los flyers al pie de la letra; solo tono, color y datos.
-- **Decisiones pendientes (no inventar):** precios de los cursos o "consulta por WhatsApp"; horarios exactos del ciclo actual; si se usa el lema "Tu fe es tu fortuna"; si el CTA principal es link directo o formulario (nombre + celular) que abre WhatsApp con mensaje prellenado; dominio final; plataforma exacta de videollamada; si se muestran testimonios y en qué formato.
+- **Decidido (2026-09-05, Frank):** el CTA principal abre WhatsApp directo con mensaje prellenado (sin formulario). Cifras que se muestran: 61.5K en TikTok, lives diarios y años enseñando (el número está pendiente).
+- **Decisiones pendientes (no inventar):** precios de los cursos o "consulta por WhatsApp"; horarios exactos del ciclo actual; años enseñando (número); tres hitos reales de la historia de Karla; si se usa el lema "Tu fe es tu fortuna"; dominio final; plataforma exacta de videollamada; si se muestran testimonios y en qué formato.
 - Terminología: "Miss Karla" (nombre público), "Matemática desde cero" (curso insignia y claim), "ciclo" (periodo de clases), "fichas" (material PDF), "grupo" (grupo de WhatsApp del curso).
 
 ## Brand Commitments
 - Nombre público: **Miss Karla** (Karla Cornejo Flores, docente de matemática).
-- Paleta obligatoria de `context/brand.md`: azul marino `#1a2350` / `#131a3a`, magenta `#e6197a` / `#ff4d8d`, dorado `#ffd23f`, turquesa `#16b8a6`, verde WhatsApp `#25d366` (solo para el botón de WhatsApp), blanco hueso `#f7f5ef`. No inventar otros colores.
-- Tipografía: titulares en sans redonda y fuerte (Poppins o Montserrat, 600-800); cuerpo Inter o Nunito Sans. Máximo dos familias.
-- Concepto de hero fijado en `context/estructura.md`: foto a pantalla completa con degradado marino hacia abajo, kicker dorado, "desde cero" en magenta, CTA verde a WhatsApp.
+- **Dirección visual fijada por Frank el 2026-09-05 (segunda ronda):** seguir la estructura y el look cálido del portafolio "Madison" (Dribbble shot 24120347, capturas en `context/referencias/inspiracion/madison/`), "lo más idéntico posible" en layout, con el contenido de Karla. La dirección anterior (hero de heynesh + cuerpo como chat, marino + magenta) queda descartada: Frank la sintió de plantilla y vendedora; lo cálido transmite calma y profesionalismo.
+- Paleta obligatoria de `context/brand.md`: blanco cálido `#fdfbf7`, resplandor `#ffe9a8`→`#ffc9a3`, tinta `#111111`, tinta secundaria `#5c5750`, acento verde azulado `#0f8b8d` (Frank lo eligió el 2026-09-05 en lugar del naranja de la referencia). Sin verde de WhatsApp (ícono en blanco), sin marino ni magenta.
+- Tipografía: Instrument Serif itálica (saludo y logo), Anton (titulares en mayúsculas), Inter (cuerpo). Tres familias, autohospedadas.
+- Botones negros en píldora en toda la página, ícono de WhatsApp en blanco; el flotante igual.
 - Voz: cercana, motivadora, paciente. Frases propias que sí se pueden usar: "Matemática desde cero", "Paso a paso y con paciencia", "100% garantizado", "Tú puedes, yo te ayudo", "Comprende, practica, aprende, triunfa". "Tu fe es tu fortuna" queda en pausa hasta que Frank decida.
-- Referencia `context/referencias/referencia-estilo-hero.png`: solo layout y vibe; no contenido ni idioma.
-- Orden de secciones fijado en `context/estructura.md`: hero, cursos, cómo funciona, prueba social, horarios, CTA final, footer.
+- Orden fijado en `context/estructura.md`: nav, hero, mis cursos, te ayudo con, cómo enseño, cómo funciona (+ horarios), mírame en vivo, cierre, footer.
+- Fotos que no son de Karla: de ejemplo (Unsplash, `public/img/ejemplo/`), marcadas como placeholder hasta que Frank entregue capturas reales.
 
 ## Evidence on Hand
 - **Existe:** 61.5K seguidores y lives diarios en TikTok (captura en `context/referencias/perfil-tiktok.png`); flyers reales en `context/referencias/` con la oferta de cursos; fotos reales de clases y alumnos en su Instagram (aula llena, eventos) que podrían usarse **solo si Frank las autoriza y las entrega**; el claim "100% garantizado" aparece en sus propios flyers.
