@@ -8,8 +8,8 @@ colors:
   tinta-3: "#77716a"
   linea: "rgb(17 17 17 / 0.12)"
   arena: "#efe9dd"
-  sol: "#ffe9a8"
-  durazno: "#ffc9a3"
+  sol: "#ffefc2"
+  durazno: "#ffd1c4"
   naranja: "#ff7a2f"
   acento: "#0f8b8d"
   blanco: "#ffffff"
@@ -199,6 +199,10 @@ Una paleta de tres tintas sobre papel cálido, con un resplandor radial como ún
 **The Sin Verde Rule.** El ícono de WhatsApp toma el color del texto que lo acompaña (blanco cálido en botones negros). Un solo color de botón y ningún color ajeno a las tres tintas.
 
 **The Resplandor Es la Única Superficie de Color Rule.** No hay franjas, tarjetas ni fondos de color: la única variación de superficie es el degradado radial `sol → durazno` detrás de la foto del hero y del bloque de cierre, siempre fundido a `fondo`.
+
+## Modo oscuro
+
+Un solo sistema de tokens con dos valores. En oscuro: `fondo` #15130f, `superficie` #211e19, `tinta` #f4efe6, `tinta-2` #b6ad9f, `tinta-3` #8e867a, `linea` 14 % de tinta, `arena` #2a2620, resplandor `sol` #7a5a22 → `durazno` #6e3f2c (ámbar sobre negro cálido, como un reflector), `acento` #3fb8b6 (más claro para contraste). Se aplica con `prefers-color-scheme: dark` salvo `data-theme` explícito en `<html>`, que fija el botón sol/luna del nav y persiste en `localStorage`. Los botones se invierten solos (píldora clara con texto oscuro). Las capas sobre video (`negro`, blanco) no cambian: el video es material fotográfico y su chrome debe leerse igual en ambos modos. Nuevos tokens fijos: `superficie` (#ffffff) para píldoras y tarjetas blancas, `negro` (#111111) para capas sobre imagen.
 
 ## Typography
 

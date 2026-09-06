@@ -29,7 +29,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? site.dominio).href;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#fdfbf7" />
+    <meta name="theme-color" content="#fdfbf7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#15130f" media="(prefers-color-scheme: dark)" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_PE" />
     <meta property="og:site_name" content={site.nombre} />
@@ -40,6 +41,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? site.dominio).href;
     <meta name="generator" content={Astro.generator} />
     <link rel="preload" as="image" href={FOTO.src} fetchpriority="high" />
     <script is:inline>
+      // Tema guardado por el botón del nav (si no hay, manda la preferencia del sistema).
+      try {
+        var tema = localStorage.getItem('tema');
+        if (tema === 'dark' || tema === 'light') document.documentElement.dataset.theme = tema;
+        else if (matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.dataset.theme = 'dark';
+      } catch (e) {}
       // Marca que hay JS y que el usuario acepta movimiento. Solo entonces los
       // elementos con data-anim arrancan ocultos para que GSAP los revele.
       if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {

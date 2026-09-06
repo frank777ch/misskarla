@@ -9,13 +9,15 @@
   --color-white: #ffffff;
 
   --color-fondo: #fdfbf7;
+  --color-superficie: #ffffff;
+  --color-negro: #111111;
   --color-tinta: #111111;
   --color-tinta-2: #5c5750;
   --color-tinta-3: #77716a;
   --color-linea: rgb(17 17 17 / 0.12);
   --color-arena: #efe9dd;
-  --color-sol: #ffe9a8;
-  --color-durazno: #ffc9a3;
+  --color-sol: #ffefc2;
+  --color-durazno: #ffd1c4;
   --color-naranja: #ff7a2f;
   --color-verdeazul: #0f8b8d;
   /* El acento de la página (punto de la píldora, punto del logo, comillas). Frank eligió el verde azulado el 2026-09-05. */
@@ -39,13 +41,50 @@
   }
 }
 
+/* ---------- Modo oscuro ----------
+   Los componentes solo usan tokens, así que basta con redefinirlos. Sigue la preferencia del
+   sistema salvo que el botón del nav haya fijado data-theme en <html> (se guarda en localStorage). */
 @layer base {
+  :root[data-theme="dark"] {
+    --color-fondo: #15130f;
+    --color-superficie: #211e19;
+    --color-tinta: #f4efe6;
+    --color-tinta-2: #b6ad9f;
+    --color-tinta-3: #8e867a;
+    --color-linea: rgb(244 239 230 / 0.14);
+    --color-arena: #2a2620;
+    --color-sol: #7a5a22;
+    --color-durazno: #6e3f2c;
+    --color-acento: #3fb8b6;
+    --shadow-pildora: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 24px -14px rgb(0 0 0 / 0.8);
+    --shadow-flotante: 0 18px 36px -16px rgb(0 0 0 / 0.9), 0 3px 8px -3px rgb(0 0 0 / 0.6);
+    --shadow-tarjeta: 0 2px 4px rgb(0 0 0 / 0.3), 0 24px 48px -28px rgb(0 0 0 / 0.9);
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --color-fondo: #15130f;
+      --color-superficie: #211e19;
+      --color-tinta: #f4efe6;
+      --color-tinta-2: #b6ad9f;
+      --color-tinta-3: #8e867a;
+      --color-linea: rgb(244 239 230 / 0.14);
+      --color-arena: #2a2620;
+      --color-sol: #7a5a22;
+      --color-durazno: #6e3f2c;
+      --color-acento: #3fb8b6;
+      --shadow-pildora: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 24px -14px rgb(0 0 0 / 0.8);
+      --shadow-flotante: 0 18px 36px -16px rgb(0 0 0 / 0.9), 0 3px 8px -3px rgb(0 0 0 / 0.6);
+      --shadow-tarjeta: 0 2px 4px rgb(0 0 0 / 0.3), 0 24px 48px -28px rgb(0 0 0 / 0.9);
+      color-scheme: dark;
+    }
+  }
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     overflow-x: clip;
     scrollbar-width: thin;
-    scrollbar-color: rgb(17 17 17 / 0.3) var(--color-fondo);
+    scrollbar-color: color-mix(in oklab, var(--color-tinta) 30%, transparent) var(--color-fondo);
     background: var(--color-fondo);
   }
   @media (prefers-reduced-motion: reduce) {
@@ -66,7 +105,7 @@
   h1, h2, h3 { text-wrap: balance; }
   p, li { text-wrap: pretty; }
   ::selection {
-    background: var(--color-durazno);
+    background: color-mix(in oklab, var(--color-durazno) 70%, var(--color-fondo));
     color: var(--color-tinta);
   }
   :focus-visible {
@@ -130,7 +169,7 @@
   white-space: nowrap;
   text-decoration: none;
   transition: translate 0.2s var(--ease-salida), box-shadow 0.2s var(--ease-salida), background-color 0.2s var(--ease-salida);
-  &:hover { translate: 0 -2px; box-shadow: var(--shadow-flotante); background: #232323; }
+  &:hover { translate: 0 -2px; box-shadow: var(--shadow-flotante); background: color-mix(in oklab, var(--color-tinta) 92%, var(--color-fondo)); }
   &:active { translate: 0 0; transition-duration: 0.08s; }
   @media (prefers-reduced-motion: reduce) { &:hover { translate: none; } }
 }
@@ -147,7 +186,7 @@
   gap: 0.6rem;
   padding: 0.6rem 1.1rem 0.6rem 0.8rem;
   border-radius: 9999px;
-  background: white;
+  background: var(--color-superficie);
   color: var(--color-tinta);
   font-size: 0.875rem;
   font-weight: 500;
@@ -164,7 +203,7 @@
   color: var(--color-tinta);
   text-decoration: underline;
   text-decoration-thickness: 1px;
-  text-decoration-color: rgb(17 17 17 / 0.3);
+  text-decoration-color: color-mix(in oklab, var(--color-tinta) 30%, transparent);
   text-underline-offset: 0.3em;
   transition: text-decoration-color 0.2s var(--ease-salida), gap 0.2s var(--ease-salida);
   &:hover { text-decoration-color: var(--color-tinta); gap: 0.65rem; }
@@ -185,8 +224,8 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 42% 38% at 50% 44%, var(--color-sol) 0%, rgb(255 233 168 / 0.55) 45%, transparent 100%),
-    radial-gradient(ellipse 58% 42% at 50% 72%, var(--color-durazno) 0%, rgb(255 201 163 / 0.5) 50%, transparent 100%);
+    radial-gradient(ellipse 42% 38% at 50% 44%, var(--color-sol) 0%, color-mix(in oklab, var(--color-sol) 55%, transparent) 45%, transparent 100%),
+    radial-gradient(ellipse 58% 42% at 50% 72%, var(--color-durazno) 0%, color-mix(in oklab, var(--color-durazno) 50%, transparent) 50%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 0%, black 78%, transparent 100%);
 }
 

@@ -96,17 +96,22 @@ const { saludo, nombreLineas, pildora, parrafo } = site.hero;
         <span class="text-left" data-anim>{saludo[1]}</span>
       </p>
 
-      <img
-        src={FOTO.src}
-        width={FOTO.ancho}
-        height={FOTO.alto}
-        alt={`${site.nombre}, ${site.rol.toLowerCase()}`}
-        fetchpriority="high"
-        decoding="async"
-        data-hero-foto
-        data-anim
-        class="foto-hero absolute bottom-0 left-1/2 z-10 h-[88%] w-auto max-w-none -translate-x-1/2 [--fundido:84%]"
-      />
+      <!-- La foto se centra con el contenedor flex, no con translate: GSAP anima el transform
+           de la imagen y convertiría el -50% en píxeles fijos (la foto quedaba corrida si la
+           imagen aún no había cargado o la ventana cambiaba de tamaño). -->
+      <div class="pointer-events-none absolute inset-0 z-10 flex items-end justify-center">
+        <img
+          src={FOTO.src}
+          width={FOTO.ancho}
+          height={FOTO.alto}
+          alt={`${site.nombre}, ${site.rol.toLowerCase()}`}
+          fetchpriority="high"
+          decoding="async"
+          data-hero-foto
+          data-anim
+          class="foto-hero h-[88%] w-auto max-w-none [--fundido:84%]"
+        />
+      </div>
       {
         !FOTO.esReal && (
           <span class="absolute top-[30%] left-1/2 z-30 -translate-x-1/2">

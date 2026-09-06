@@ -15,7 +15,7 @@ No es un sitio corporativo largo: es una landing enfocada en convertir.
 - Español (Perú).
 
 ## Reglas fijas (no romper)
-1. Paleta y tipografía en `context/brand.md` (look cálido: blanco cálido, resplandor durazno,
+1. Paleta y tipografía en `context/brand.md` (look cálido: blanco cálido, resplandor dorado a rosa suave,
    tinta negra, acento verde azulado `#0f8b8d`; Instrument Serif itálica + Anton + Inter). No inventes otros
    colores ni fuentes. El marino y el magenta de los flyers ya NO se usan en la web.
 2. **La foto del hero la entrega Frank**: `src/assets/foto/profe.png` (recorte PNG con fondo

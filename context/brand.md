@@ -9,7 +9,7 @@ y cercanía, que es justo lo que Karla vende ("desde cero, con paciencia").
 | Rol | Hex | Uso |
 |-----|-----|-----|
 | Fondo | `#fdfbf7` (blanco cálido) | toda la página |
-| Resplandor | `#ffe9a8` → `#ffc9a3` (amarillo suave a durazno) | detrás de Karla en el hero; franjas suaves entre secciones |
+| Resplandor | `#ffefc2` → `#ffd1c4` (dorado suave a rosa suave; Frank lo eligió el 2026-09-05 en lugar del durazno anaranjado de la referencia) | detrás de Karla en el hero; franjas suaves entre secciones |
 | Tinta | `#111111` | titulares, cuerpo, botones principales |
 | Tinta secundaria | `#5c5750` | párrafos de apoyo, etiquetas |
 | Acento | `#0f8b8d` (verde azulado) | el punto de la píldora, el punto del logo y las comillas de las reseñas; complementario del durazno. Elegido por Frank el 2026-09-05 en lugar del naranja de la referencia. Los numerales 01-04 van en gris cálido claro |
@@ -18,6 +18,12 @@ y cercanía, que es justo lo que Karla vende ("desde cero, con paciencia").
 Los botones son negros en píldora (nav, CTA, flotante) con el ícono de WhatsApp en blanco:
 un solo color de botón y ningún color ajeno en la página.
 No se usa el marino ni el magenta: el saco marino de la foto ya aporta el azul.
+
+## Modo oscuro (2026-09-05)
+Mismos tokens con otros valores: fondo `#15130f` (negro cálido), superficie `#211e19`, tinta
+`#f4efe6`, tinta-2 `#b6ad9f`, arena `#2a2620`, resplandor ámbar `#7a5a22` → `#6e3f2c`, acento
+`#3fb8b6`. Sigue la preferencia del sistema; el botón sol/luna del nav la fija y la recuerda
+(`localStorage.tema`). Las capas sobre video usan `negro`/blanco fijos para no invertirse.
 
 ## Tipografía (tres voces, roles fijos)
 - **Instrument Serif itálica** → lo emocional: el saludo "Hola, soy" del hero y el logo "Miss Karla."

@@ -37,7 +37,7 @@
       "sol": {
         "role": "secondary",
         "displayName": "Sol (resplandor arriba)",
-        "canonical": "#ffe9a8",
+        "canonical": "#ffefc2",
         "tonalRamp": [
           "oklch(20% 0.04 90)",
           "oklch(32% 0.06 90)",
@@ -52,7 +52,7 @@
       "durazno": {
         "role": "secondary",
         "displayName": "Durazno (resplandor abajo)",
-        "canonical": "#ffc9a3",
+        "canonical": "#ffd1c4",
         "tonalRamp": [
           "oklch(20% 0.04 55)",
           "oklch(32% 0.06 55)",
@@ -369,7 +369,7 @@
       "refersTo": "headline",
       "description": "El bloque de cierre: itálica de apoyo en tinta-2, titular Anton en mayúsculas centrado, sobre el resplandor sol→durazno sin máscara.",
       "html": "<section class=\"ds-cierre\"><div class=\"ds-resplandor\" aria-hidden=\"true\"></div><p class=\"ds-cursiva\">Tú puedes,</p><h2 class=\"ds-titulo\">yo te ayudo</h2><p class=\"ds-cierre-texto\">Escríbeme y te cuento cómo empezar desde cero. Yo misma respondo.</p></section>",
-      "css": ".ds-cierre { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 4rem 1.25rem; text-align: center; background: var(--color-fondo, #fdfbf7); font-family: var(--font-body, 'Inter Variable', Inter, system-ui, sans-serif); } .ds-resplandor { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse 42% 38% at 50% 44%, var(--color-sol, #ffe9a8) 0%, rgb(255 233 168 / 0.55) 45%, transparent 100%), radial-gradient(ellipse 58% 42% at 50% 72%, var(--color-durazno, #ffc9a3) 0%, rgb(255 201 163 / 0.5) 50%, transparent 100%); } .ds-cursiva { margin: 0; font-family: var(--font-cursiva, 'Instrument Serif', 'Iowan Old Style', Georgia, serif); font-style: italic; font-weight: 400; font-size: clamp(2.25rem, 7vw, 3.5rem); line-height: 1; letter-spacing: -0.01em; color: var(--color-tinta-2, #5c5750); } .ds-titulo { margin: 0.5rem 0 0; font-family: var(--font-titular, Anton, Impact, 'Arial Narrow', sans-serif); font-weight: 400; font-size: clamp(3.5rem, 3rem + 5vw, 7rem); line-height: 0.95; letter-spacing: -0.005em; text-transform: uppercase; color: var(--color-tinta, #111111); } .ds-cierre-texto { margin: 1.5rem 0 0; max-width: 26rem; font-size: 1.0625rem; font-weight: 450; line-height: 1.375; color: var(--color-tinta-2, #5c5750); }"
+      "css": ".ds-cierre { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 4rem 1.25rem; text-align: center; background: var(--color-fondo, #fdfbf7); font-family: var(--font-body, 'Inter Variable', Inter, system-ui, sans-serif); } .ds-resplandor { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse 42% 38% at 50% 44%, var(--color-sol, #ffefc2) 0%, rgb(255 233 168 / 0.55) 45%, transparent 100%), radial-gradient(ellipse 58% 42% at 50% 72%, var(--color-durazno, #ffd1c4) 0%, rgb(255 201 163 / 0.5) 50%, transparent 100%); } .ds-cursiva { margin: 0; font-family: var(--font-cursiva, 'Instrument Serif', 'Iowan Old Style', Georgia, serif); font-style: italic; font-weight: 400; font-size: clamp(2.25rem, 7vw, 3.5rem); line-height: 1; letter-spacing: -0.01em; color: var(--color-tinta-2, #5c5750); } .ds-titulo { margin: 0.5rem 0 0; font-family: var(--font-titular, Anton, Impact, 'Arial Narrow', sans-serif); font-weight: 400; font-size: clamp(3.5rem, 3rem + 5vw, 7rem); line-height: 0.95; letter-spacing: -0.005em; text-transform: uppercase; color: var(--color-tinta, #111111); } .ds-cierre-texto { margin: 1.5rem 0 0; max-width: 26rem; font-size: 1.0625rem; font-weight: 450; line-height: 1.375; color: var(--color-tinta-2, #5c5750); }"
     }
   ],
   "narrative": {

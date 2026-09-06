@@ -23,7 +23,7 @@ const { nombre, url, titulo, class: className = '' } = Astro.props;
   href={url}
   target="_blank"
   rel="noopener"
-  class:list={['group relative block aspect-[9/16] overflow-hidden rounded-[1.25rem] bg-arena no-underline text-fondo', className]}
+  class:list={['group relative block aspect-[9/16] overflow-hidden rounded-[1.25rem] bg-arena no-underline text-white', className]}
   aria-label={`${titulo}. Ver en TikTok`}
 >
   <video
@@ -41,8 +41,8 @@ const { nombre, url, titulo, class: className = '' } = Astro.props;
     <source src={`/video/${nombre}.webm`} type="video/webm" />
     <source src={`/video/${nombre}.mp4`} type="video/mp4" />
   </video>
-  <span class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-tinta/60 to-transparent" aria-hidden="true"></span>
-  <span class="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-tinta/70 px-2.5 py-1 text-[0.75rem] font-medium backdrop-blur-sm transition-colors group-hover:bg-tinta">
+  <span class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-negro/60 to-transparent" aria-hidden="true"></span>
+  <span class="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-negro/70 px-2.5 py-1 text-[0.75rem] font-medium backdrop-blur-sm transition-colors group-hover:bg-negro">
     <Icon nombre="tiktok" class="h-3.5 w-3.5" /> Ver en TikTok
   </span>
 </a>

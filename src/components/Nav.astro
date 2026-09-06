@@ -20,8 +20,20 @@ import { enlaceWhatsApp } from '../lib/whatsapp';
       ))
     }
   </ul>
-  <a href={enlaceWhatsApp(site.mensajes.general)} target="_blank" rel="noopener" class="boton min-h-10 px-4 py-2 text-[0.875rem] lg:min-h-12 lg:px-6 lg:text-[0.9375rem]">
-    <Icon nombre="whatsapp" class="h-[1.125rem] w-[1.125rem]" />
-    <span>WhatsApp</span>
-  </a>
+  <div class="flex items-center gap-2 lg:gap-3">
+    <button
+      type="button"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-linea text-tinta transition-colors hover:bg-arena lg:h-12 lg:w-12"
+      data-tema
+      aria-label="Cambiar entre modo claro y oscuro"
+      title="Modo claro / oscuro"
+    >
+      <Icon nombre="luna" class="h-5 w-5 [html[data-theme=dark]_&]:hidden" />
+      <Icon nombre="sol" class="hidden h-5 w-5 [html[data-theme=dark]_&]:block" />
+    </button>
+    <a href={enlaceWhatsApp(site.mensajes.general)} target="_blank" rel="noopener" class="boton min-h-10 px-4 py-2 text-[0.875rem] lg:min-h-12 lg:px-6 lg:text-[0.9375rem]">
+      <Icon nombre="whatsapp" class="h-[1.125rem] w-[1.125rem]" />
+      <span>WhatsApp</span>
+    </a>
+  </div>
 </nav>

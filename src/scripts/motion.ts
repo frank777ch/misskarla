@@ -17,6 +17,15 @@ gsap.registerPlugin(ScrollTrigger);
 const SALIDA = 'expo.out';
 const raiz = document.documentElement;
 
+/* Botón de tema: alterna claro/oscuro y lo recuerda. */
+document.querySelector<HTMLButtonElement>('[data-tema]')?.addEventListener('click', () => {
+  const oscuro = raiz.dataset.theme === 'dark';
+  raiz.dataset.theme = oscuro ? 'light' : 'dark';
+  try {
+    localStorage.setItem('tema', raiz.dataset.theme);
+  } catch {}
+});
+
 /* Botón flotante: oculto mientras el botón del hero se ve. */
 const fab = document.querySelector<HTMLElement>('[data-fab]');
 const ctasHero = document.querySelectorAll<HTMLElement>('[data-cta-hero]');
