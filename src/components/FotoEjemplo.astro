@@ -17,7 +17,7 @@ const { src, alt, class: className = '', ratio = '4/3', loading = 'lazy' } = Ast
 ---
 
 <figure class:list={['relative m-0 overflow-hidden rounded-[1.25rem] bg-arena', className]} style={`aspect-ratio:${ratio}`}>
-  <img src={src} alt={alt} loading={loading} decoding="async" class="foto absolute inset-0" />
+  <img src={src} alt={alt} loading={loading} decoding="async" class="foto foto-tarjeta absolute inset-0" />
   {
     site.mostrarPendientes && (
       <figcaption

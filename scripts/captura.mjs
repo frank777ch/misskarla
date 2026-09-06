@@ -31,6 +31,10 @@ try {
   const send = (method, params = {}) => new Promise((r) => { const i = ++id; pend.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
 
   await send('Page.enable');
+  await send('Runtime.enable');
+  const errores = [];
+  const onMsg = ws.onmessage;
+  ws.onmessage = (e) => { const m = JSON.parse(e.data); if (m.method === 'Runtime.exceptionThrown') errores.push(m.params.exceptionDetails?.exception?.description || m.params.exceptionDetails?.text); onMsg(e); };
   await send('Emulation.setDeviceMetricsOverride', { width: desde ? desde[0] : +ancho, height: desde ? desde[1] : +alto, deviceScaleFactor: 1, mobile: movil && !desde });
   if (movil) await send('Emulation.setTouchEmulationEnabled', { enabled: true });
   await send('Page.navigate', { url });
@@ -62,6 +66,7 @@ try {
   const cap = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: full, ...(clip ? { clip } : {}) });
   if (!cap.result) throw new Error('captureScreenshot: ' + JSON.stringify(cap.error));
   writeFileSync(salida, Buffer.from(cap.result.data, 'base64'));
+  if (errores.length) console.log('ERRORES JS:', JSON.stringify(errores.slice(0, 5)));
   console.log(`${salida} ${ancho}x${clip ? clip.height : alto}`);
   ws.close();
 } finally {

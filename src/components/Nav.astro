@@ -6,21 +6,21 @@ import { enlaceWhatsApp } from '../lib/whatsapp';
 ---
 
 <nav class="contenedor flex items-center justify-between gap-4 py-4 lg:py-7" aria-label="Principal">
-  <a href="#inicio" class="cursiva text-[1.625rem] leading-none text-tinta no-underline lg:text-[2rem]">
+  <a href="#inicio" class="cursiva text-[1.625rem] leading-none text-tinta no-underline lg:text-[2rem]" data-nav-item data-anim>
     {site.nombre}<span class="text-acento">.</span>
   </a>
   <ul class="m-0 hidden list-none items-center gap-9 p-0 lg:flex">
     {
       site.nav.map((item) => (
-        <li>
-          <a href={item.href} class="text-[0.9375rem] font-medium text-tinta no-underline transition-colors hover:text-tinta-2">
+        <li data-nav-item data-anim>
+          <a href={item.href} class="nav-enlace text-[0.9375rem] font-medium text-tinta no-underline" data-nav-enlace={item.href.slice(1)}>
             {item.texto}
           </a>
         </li>
       ))
     }
   </ul>
-  <div class="flex items-center gap-2 lg:gap-3">
+  <div class="flex items-center gap-2 lg:gap-3" data-nav-item data-anim>
     <button
       type="button"
       class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-linea text-tinta transition-colors hover:bg-arena lg:h-12 lg:w-12"

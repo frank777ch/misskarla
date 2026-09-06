@@ -17,14 +17,40 @@ gsap.registerPlugin(ScrollTrigger);
 const SALIDA = 'expo.out';
 const raiz = document.documentElement;
 
-/* Botón de tema: alterna claro/oscuro y lo recuerda. */
+/* Botón de tema: alterna claro/oscuro con fundido y lo recuerda. */
 document.querySelector<HTMLButtonElement>('[data-tema]')?.addEventListener('click', () => {
   const oscuro = raiz.dataset.theme === 'dark';
+  raiz.classList.add('tema-transicion');
   raiz.dataset.theme = oscuro ? 'light' : 'dark';
+  setTimeout(() => raiz.classList.remove('tema-transicion'), 500);
   try {
     localStorage.setItem('tema', raiz.dataset.theme);
   } catch {}
 });
+
+/* Nav: marca la sección visible con aria-current (el subrayado lo dibuja el CSS). */
+const enlacesNav = document.querySelectorAll<HTMLAnchorElement>('[data-nav-enlace]');
+if (enlacesNav.length && 'IntersectionObserver' in window) {
+  const porId = new Map([...enlacesNav].map((a) => [a.dataset.navEnlace!, a]));
+  const visibles = new Map<string, number>();
+  const io = new IntersectionObserver(
+    (entradas) => {
+      for (const e of entradas) visibles.set(e.target.id, e.isIntersecting ? e.intersectionRatio : 0);
+      let mejor = '';
+      let max = 0;
+      for (const [id, r] of visibles) if (r > max) { max = r; mejor = id; }
+      for (const [id, a] of porId) {
+        if (id === mejor) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      }
+    },
+    { threshold: [0.15, 0.35, 0.6], rootMargin: '-20% 0px -40% 0px' },
+  );
+  for (const id of porId.keys()) {
+    const sec = document.getElementById(id);
+    if (sec) io.observe(sec);
+  }
+}
 
 /* Botón flotante: oculto mientras el botón del hero se ve. */
 const fab = document.querySelector<HTMLElement>('[data-fab]');
@@ -64,9 +90,10 @@ if (raiz.classList.contains('js')) {
      en display:none no se ve, pero queda revelada si la ventana cambia de tamaño. */
   const visible = (sel: string) => gsap.utils.toArray<HTMLElement>(sel);
 
-  // 1. Entrada del hero.
+  // 1. Entrada del hero (el nav entra con él).
   const hero = gsap.timeline({ defaults: { ease: SALIDA } });
   hero
+    .fromTo('[data-nav-item]', { autoAlpha: 0, y: -10 }, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.05 }, 0)
     .fromTo('[data-hero-resplandor]', { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 1.4, ease: 'power2.out' }, 0)
     .fromTo(visible('[data-hero-saludo] > *'), { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.12 }, 0.1)
     .fromTo(
@@ -76,7 +103,11 @@ if (raiz.classList.contains('js')) {
       0.15,
     )
     .fromTo(visible('[data-hero-linea]'), { yPercent: 110, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.8, stagger: 0.09 }, 0.5)
-    .fromTo(visible('[data-hero-item]'), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 }, 0.75);
+    .fromTo(visible('[data-hero-item]'), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 }, 0.75)
+    // Al terminar, el resplandor respira despacio (escala) mientras el puntero lo desplaza (xPercent).
+    .add(() => {
+      gsap.to('[data-hero-resplandor]', { scale: 1.05, duration: 5, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    });
 
   // 2. El resplandor sigue al puntero (solo punteros finos).
   const resplandor = document.querySelector<HTMLElement>('[data-hero-resplandor]');
@@ -95,8 +126,24 @@ if (raiz.classList.contains('js')) {
     });
   }
 
-  // 3. Reveals por scroll.
+  // 3. Reveals por scroll. Los títulos de sección entran con barrido (como las líneas del nombre).
   gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {
+    if (el.classList.contains('titulo') && el.children.length === 0) {
+      const texto = el.textContent ?? '';
+      el.textContent = '';
+      el.style.overflow = 'hidden';
+      const interior = document.createElement('span');
+      interior.className = 'block pb-[0.08em] -mb-[0.08em]';
+      interior.textContent = texto;
+      el.appendChild(interior);
+      gsap.set(el, { autoAlpha: 1 });
+      gsap.fromTo(
+        interior,
+        { yPercent: 110 },
+        { yPercent: 0, duration: 1, ease: SALIDA, scrollTrigger: { trigger: el, start: 'top 90%', once: true } },
+      );
+      return;
+    }
     gsap.fromTo(
       el,
       { autoAlpha: 0, y: 28 },
@@ -106,10 +153,30 @@ if (raiz.classList.contains('js')) {
   gsap.utils.toArray<HTMLElement>('[data-reveal-grupo]').forEach((grupo) => {
     const hijos = grupo.querySelectorAll<HTMLElement>('[data-anim]');
     if (!hijos.length) return;
-    gsap.fromTo(
-      hijos,
-      { autoAlpha: 0, y: 24 },
-      { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.1, ease: SALIDA, scrollTrigger: { trigger: grupo, start: 'top 85%', once: true } },
-    );
+    const tl = gsap.timeline({ scrollTrigger: { trigger: grupo, start: 'top 85%', once: true } });
+    tl.fromTo(hijos, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.1, ease: SALIDA }, 0);
+    // Las fotos de tarjeta se asientan: llegan un poco ampliadas y bajan a su tamaño.
+    const fotos = grupo.querySelectorAll<HTMLElement>('.foto-tarjeta');
+    if (fotos.length) tl.fromTo(fotos, { scale: 1.08 }, { scale: 1, duration: 1.4, stagger: 0.1, ease: SALIDA, clearProps: 'scale' }, 0);
+    // Las filas dibujan su línea superior de izquierda a derecha.
+    const filas = grupo.querySelectorAll<HTMLElement>('.fila');
+    if (filas.length) tl.fromTo(filas, { '--linea': '0%' }, { '--linea': '100%', duration: 1.1, stagger: 0.1, ease: SALIDA }, 0.1);
+  });
+
+  // 4. Cifras que cuentan hacia arriba al aparecer (61.5K, 15 años).
+  gsap.utils.toArray<HTMLElement>('[data-cifra]').forEach((el) => {
+    const fin = parseFloat(el.dataset.cifra ?? '0');
+    const dec = parseInt(el.dataset.decimales ?? '0', 10);
+    const sufijo = el.dataset.sufijo ?? '';
+    const estado = { v: 0 };
+    gsap.to(estado, {
+      v: fin,
+      duration: 1.6,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      onUpdate: () => {
+        el.textContent = estado.v.toFixed(dec) + sufijo;
+      },
+    });
   });
 }

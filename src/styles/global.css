@@ -258,6 +258,47 @@
   }
 }
 
+/* Enlaces del nav: subrayado que se dibuja al pasar y queda fijo en la sección activa. */
+.nav-enlace {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.4rem;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease-salida);
+  }
+  &:hover::after, &[aria-current="true"]::after { transform: scaleX(1); }
+}
+
+/* Fotos de las tarjetas: zoom suave al pasar (usa `scale`, que no pelea con el transform de GSAP). */
+.foto-tarjeta { transition: scale 0.8s var(--ease-salida); }
+.group:hover .foto-tarjeta { scale: 1.035; }
+@media (prefers-reduced-motion: reduce) { .group:hover .foto-tarjeta { scale: 1; } }
+
+/* Tarjetas de video: se levantan un poco al pasar. */
+.tarjeta-video {
+  transition: translate 0.5s var(--ease-salida), box-shadow 0.5s var(--ease-salida);
+  &:hover { translate: 0 -4px; box-shadow: var(--shadow-flotante); }
+  @media (prefers-reduced-motion: reduce) { &:hover { translate: none; } }
+}
+
+/* La línea de cada fila se dibuja de izquierda a derecha al revelarse (motion.ts anima --linea). */
+html.js .fila {
+  border-top-color: transparent;
+  background: linear-gradient(var(--color-linea), var(--color-linea)) left top / var(--linea, 100%) 1px no-repeat;
+}
+
+/* Cambio de tema: los colores se funden en vez de saltar (la clase la pone motion.ts medio segundo). */
+html.tema-transicion, html.tema-transicion *, html.tema-transicion *::before, html.tema-transicion *::after {
+  transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease !important;
+}
+
 /* Botón flotante: se esconde mientras el botón del hero está en pantalla (motion.ts). */
 .fab {
   transition: translate 0.25s var(--ease-salida), opacity 0.25s var(--ease-salida), box-shadow 0.2s var(--ease-salida);

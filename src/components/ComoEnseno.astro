@@ -24,7 +24,7 @@ const { tiktok } = site.redes;
           <dd class="m-0">
             <a href={tiktok.url} target="_blank" rel="noopener" class="no-underline text-tinta">
               <span class="flex items-center gap-2 font-titular text-[2.75rem] leading-none lg:text-[3.25rem]">
-                {tiktok.seguidoresTexto}<Icon nombre="tiktok" class="h-6 w-6" />
+                <span data-cifra="61.5" data-decimales="1" data-sufijo="K">{tiktok.seguidoresTexto}</span><Icon nombre="tiktok" class="h-6 w-6" />
               </span>
               <span class="mt-2 block text-[0.8125rem] text-tinta-2">me siguen en TikTok</span>
             </a>
@@ -34,7 +34,7 @@ const { tiktok } = site.redes;
           <dt class="sr-only">Años enseñando</dt>
           <dd class="m-0">
             <span class="block font-titular text-[2.75rem] leading-none lg:text-[3.25rem]">
-              {anios ?? <span class="text-arena">?</span>}
+              {anios ? <span data-cifra={anios}>{anios}</span> : <span class="text-arena">?</span>}
             </span>
             <span class="mt-2 block text-[0.8125rem] text-tinta-2">
               años enseñando {!anios && <TodoChip label="años" />}
