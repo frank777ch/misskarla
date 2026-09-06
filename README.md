@@ -60,6 +60,41 @@ histórico de iteraciones va fechado en `context/historico/`.
 
 Decidido: el CTA abre WhatsApp directo, sin formulario.
 
+## Publicar en Cloudflare Pages
+
+Conectar el repo `frank777ch/misskarla`, rama `main`, con estos valores:
+
+| Campo | Valor |
+|-------|-------|
+| Framework preset | Astro |
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+| Variable de entorno | `NODE_VERSION` = `22` |
+
+No hace falta ninguna otra variable: la clave de Gemini (`.env`) solo se usa en la máquina
+local para generar imágenes.
+
+### Activar Web Analytics (gratis, sin cookies)
+
+Cloudflare Web Analytics mide visitas, páginas vistas, países y dispositivos sin cookies ni
+consentimiento, y en Pages se activa con un clic:
+
+1. En el panel de Cloudflare entra a **Workers & Pages → misskarla**.
+2. Abre la pestaña **Metrics** (o **Analytics**) y pulsa **Enable Web Analytics**.
+3. Listo: Cloudflare inyecta el script de medición en cada despliegue del sitio. No hay que
+   tocar el código ni volver a desplegar.
+
+Si en algún momento el sitio se sirve desde otro dominio o la inyección automática está
+apagada, se agrega el beacon a mano en `src/layouts/Base.astro`, antes de `</body>`:
+
+```html
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token": "TOKEN_DEL_SITIO"}'></script>
+```
+
+El token sale de **Web Analytics → Manage site → JS snippet** en el panel de Cloudflare.
+Los datos aparecen en **Analytics & Logs → Web Analytics** y tardan unos minutos en llegar.
+
 ## Contexto de diseño
 
 - `CLAUDE.md`: reglas del proyecto.
