@@ -131,9 +131,12 @@ if (raiz.classList.contains('js')) {
     if (el.classList.contains('titulo') && el.children.length === 0) {
       const texto = el.textContent ?? '';
       el.textContent = '';
+      // El recorte del barrido deja aire arriba para los acentos y la tilde de la Ñ (Anton sobresale).
       el.style.overflow = 'hidden';
+      el.style.paddingTop = '0.18em';
+      el.style.marginTop = '-0.18em';
       const interior = document.createElement('span');
-      interior.className = 'block pb-[0.08em] -mb-[0.08em]';
+      interior.style.display = 'block';
       interior.textContent = texto;
       el.appendChild(interior);
       gsap.set(el, { autoAlpha: 1 });
